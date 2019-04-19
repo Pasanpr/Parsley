@@ -11,6 +11,7 @@ public final class Syllablast<View, DefinitionStore, Codec> where View: Bidirect
     private let source: View
     private let markdown: Markdown<View, DefinitionStore, Codec>
     private let decoder = YAMLDecoder()
+    private let encoder = YAMLEncoder()
     
     public init(source: View, definitionStore: DefinitionStore, codec: Codec.Type) {
         self.source = source
@@ -22,12 +23,13 @@ public final class Syllablast<View, DefinitionStore, Codec> where View: Bidirect
     }
     
     public func generateAdminYaml() throws -> String {
-        return ""
+        let course = try generateSyllabus()
+        return try encoder.encode(course)
     }
     
     private func generateSyllabus() throws -> Course {
         var course = try generateCourseShell(codec: Codec.self)
-        let stages = try generateStages()
+//        let stages = try generateStages()
         //        course.stages.append(contentsOf: stages)
         
         return course
