@@ -50,7 +50,11 @@ final class StageBuilder<View, DefinitionStore, Codec> where View: Bidirectional
     
     private func parseSteps() throws -> [Step<View, DefinitionStore.Definition>] {
         var steps: [Step<View, DefinitionStore.Definition>] = []
-        steps.append(try parseStep())
+        
+        while markdown.isNotAtEnd {
+            steps.append(try parseStep())
+        }
+        
         return steps
     }
     
@@ -67,6 +71,11 @@ final class StageBuilder<View, DefinitionStore, Codec> where View: Bidirectional
             let videoBuilder = VideoBuilder(header: header, markdown: markdown)
             let video = try videoBuilder.generateVideo(withTopic: topic)
             return Step.video(video)
+        case .instruction:
+            let instructionBuilder = InstructionBuilder(header: header, markdown: markdown)
+            let instruction = try instructionBuilder.generateInstruction(withTopic: topic)
+            return Step.instruction(instruction)
+            fatalError()
         default:
             fatalError()
         }

@@ -32,13 +32,12 @@ syllabus:
     - Declaring array literals
     - Defining array types
     steps:
-    - type: Video<String, String>
+    - type: Video
       title: Lists of Data
       description: In Swift the Array type is used to represent lists of data. In
         this video lets talk about what an array is and how we create array literals
       access_level: Basic
       published: false
-      authors: []
       learning_objectives:
       - title: Recall that a collection is a structure that contains multiple values
         cognitive_level: recall
@@ -85,4 +84,20 @@ syllabus:
       - title: Differentiate between declaring an array literal and assigning it to
           a constant
         cognitive_level: intepretation
+        topic: Swift
+    - type: Instruction
+      title: Learning at Treehouse
+      description: In this document we cover how to fully utilize the resources Treehouse
+        offers
+      format: Markdown
+      markdown: Update this
+      estimated_minutes: 5
+      access_level: Basic
+      published: false
+      learning_objectives:
+      - title: Understand how to use Treehouse to learn effectively
+        cognitive_level: recall
+        topic: Swift
+      - title: Know where to go if they have questions and how to ask for help
+        cognitive_level: recall
         topic: Swift

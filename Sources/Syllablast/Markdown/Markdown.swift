@@ -39,6 +39,10 @@ public final class Markdown<View, DefinitionStore, Codec> where View: Bidirectio
         return ast.isEmpty
     }
     
+    var isNotAtEnd: Bool {
+        return !isAtEnd
+    }
+    
     func popWhile(_ predicate: (Block?) throws -> PopOrStop) rethrows -> Queue<Block> {
         return try ast.dequeueWhile(predicate)
     }

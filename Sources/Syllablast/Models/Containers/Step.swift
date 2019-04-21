@@ -10,7 +10,7 @@ import SwiftMark
 
 enum Step<View, DefinitionStore>: Encodable where View: BidirectionalCollection, DefinitionStore: ReferenceDefinitionProtocol {
     case video(Video<View, DefinitionStore>)
-    case instruction(Instruction)
+    case instruction(Instruction<View, DefinitionStore>)
     case codeChallenge(CodeChallenge)
     case quiz(Quiz)
     

@@ -16,7 +16,6 @@ final class Video<View, DefinitionStore>: Content, Encodable where View: Bidirec
     let scripts: Script<View, DefinitionStore>
     var learningObjectives: [LearningObjective] = []
     let notes: Notes
-    let authors: [Author]
     let topic: Topic
     
     private enum CodingKeys: String, CodingKey {
@@ -36,19 +35,16 @@ final class Video<View, DefinitionStore>: Content, Encodable where View: Bidirec
         self.published = published
         self.scripts = scripts
         self.notes = notes
-        self.authors = authors
         self.topic = topic
     }
     
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        let typeName = String(describing: type(of: self))
-        try container.encode(typeName, forKey: .type)
+        try container.encode("Video", forKey: .type)
         try container.encode(title, forKey: .title)
         try container.encode(description, forKey: .description)
         try container.encode(accessLevel, forKey: .accessLevel)
         try container.encode(published, forKey: .published)
-        try container.encode(authors, forKey: .authors)
         
         if !learningObjectives.isEmpty {
             try container.encodeIfPresent(learningObjectives, forKey: .learningObjectives)

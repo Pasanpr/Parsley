@@ -60,5 +60,4 @@ public final class Syllablast<View, DefinitionStore, Codec> where View: Bidirect
         let stageBuilder = StageBuilder(markdown: self.markdown, topic: topic)
         return try stageBuilder.generateStage()
     }
-    
 }

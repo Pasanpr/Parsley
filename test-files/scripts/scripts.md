@@ -125,3 +125,87 @@ Alright before we talk about anything else, let's get some quick practice declar
 
 [LO-12-2]: Differentiate between declaring an array literal and assigning it to a constant
 
+## Instruction - Learning at Treehouse
+
+```yaml
+---
+description: In this document we cover how to fully utilize the resources Treehouse offers
+format: Markdown
+estimated_minutes: 5
+```
+
+If this is your first time at Treehouse, welcome! In this document we’re going to talk about how you can fully utilize the resources Treehouse provides to get the best learning experience. If you've been here a while and know how to use the Treehouse app, go all the way to the bottom of this document and hit "Ok, I got it". [LO-5]
+
+All Treehouse courses consist of a combination of units:
+1. Videos, one of which you just watched
+2. Instruction Steps - text based documents (like this one)
+3. Quizzes
+4. Code Challenges
+5. Practice Sessions
+
+### Videos and Instructions
+
+In Videos and Instruction Steps you will learn new material that will introduce concepts, walk you through code and teach you how to program and build apps. To achieve this goal both videos and Instruction steps contain some additional resources. 
+
+#### Teacher’s Notes
+
+On a video page, if you scroll down, you can find a section called **Teacher’s Notes**. While we aim to make Treehouse the one stop shop for all your educational needs there will always be a wealth of material online that can supplement your learning journey.
+
+Most videos will link to such external resources, particularly the official Swift documentation. Pay special attention to these. They are guides written by the people who built Swift and they contain the one true source of advice on how to use the language. Reading the documentation is an extremely important part of being a developer and we’re going to get used to it right from the start.
+
+In addition you will find links to blog posts, glossary items, code snippets and even Wikipedia pages. Make sure you go through all this as you take a course. These external links are considered part of the course experience and you might find yourself with a few unanswered questions if you don’t check the Notes frequently.
+
+#### Questions
+
+Speaking of questions, all Video and Instruction pages also consist of a **Questions** section. Here you will find questions that other students have asked and answered about material introduced in the video or instruction step. If you find that you have some questions about material that was not addressed in either the video or the notes, this is a good place to start.
+
+There’s a high chance that another student has already asked the question you have and has received an answer. Before you jump into the [Treehouse Community][1] and ask a question, skim the existing ones to see if your answer exists. If not, ask away! If the thought of asking a question on a public forum makes you uncomfortable, don’t worry we [have a guide for that](./HowToAskForHelp.md) [LO-6].
+
+#### Downloads
+
+When you follow along with a Video or an Instruction step and write code we want to make sure that you have easy access to the files that we create or the videos you watch. In the **Downloads** section you can find download links to the project files associated with the course, standard and high definition video files as well as the transcripts for the videos.
+
+We highly encourage you to modify code that we write in videos to further your understanding of concepts and to experiment with features you build. At any point if you want to reset state, you can use the project files as an easy way to achieve this.
+
+#### Workspaces
+
+Writing and running code can happen in many types of software and on different kinds of computers. When starting out, getting your _environment_ set up can be a daunting task so Treehouse offers an easy in-browser, coding environment called Workspaces to get you up and running.
+
+In Swift content, both the videos and instruction steps will always use a program called Xcode to write and run code. Xcode only runs on macOS however so if you’re on either Linux or Windows, you can use Workspaces to learn how to program in Swift.
+
+We’ll cover Workspaces more in detail later but if you’re using Workspaces you will find all of your created workspaces in this section.
+
+### Quizzes and Code Challenges
+
+Once you have learned new content at Treehouse we want to make sure that it sticks in your brain. To test your knowledge you will encounter two tools - quizzes and code challenges.
+
+You might be familiar with quizzes from other learning environments and Treehouse quizzes are no different - they are a combination of multiple choice, fill in the blanks or True/False questions to help test concepts and small snippets of code.
+
+Code challenges are where you will get your first taste of programming. A code challenge consists of a set of directions along with a _text editor_ to enter your code. Follow the directions and hit Run to see if you passed the code challenge or not!
+
+There are a couple things you should keep in mind when using code challenges:
+1. It is not cheating to solve the problem in your preferred coding environment and paste it in the challenge editor. In fact, I highly encourage  this. As you will find out soon, Xcode, the editor we will use, is a powerful piece of software that has many tricks up its sleeve to help you write code.
+2. Like Videos and Instruction steps, Code Challenges also have student discussions associated with them. If you can’t solve the problem, click on the *Get Help* button to ask a question. If a similar question exists Treehouse will bring it up so you can check it out.
+
+It is not a big deal if you can’t pass code challenges on your first try. It’s common to feel frustrated or upset but know that everyone has difficulties and sometimes it just takes reviewing the material again.
+
+### Practice Sessions
+
+Finally, courses have **Practice Sessions** associated with them. While passing Quizzes and Code Challenges are necessary to _completing_ a course, Practice Sessions are a voluntary, on-your-own-time activities that you can take to get in additional practice.
+
+You won’t find a Practice Session listed on the main page of the course, but when you finish relevant material Treehouse will suggest some practice sessions for you to try out.
+
+The format of a Practice Session will vary based on what the instructor thinks is best but you can expect to find a series of Code Challenges that you have to pass, a list of instructions to build a simple program followed by a solution video, or even a full blown project.
+
+Regardless of the format, you should definitely make time to work through these practice exercises. A big part of understanding programming is using simple tools in a variety of concepts and Practice Sessions is where you will get the most opportunity for this.
+
+Alright, if you’re ready, hit “Ok, I got it” to head to the next step.
+
+[1]: https://teamtreehouse.com/community
+
+---
+
+[LO-5]: Understand how to use Treehouse to learn effectively
+
+[LO-6]: Know where to go if they have questions and how to ask for help
+

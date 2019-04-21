@@ -6,19 +6,22 @@
 //
 
 import Foundation
+import SwiftMark
 
-final class Instruction: Content, Encodable {
+final class Instruction<View, DefinitionStore>: Content, Encodable where View: BidirectionalCollection, DefinitionStore: ReferenceDefinitionProtocol {
+    typealias Block = MarkdownBlock<View, DefinitionStore>
+    
     let title: String
     let description: String
-    let format: TextFormat
-    let markdown: String?
+    let format: InstructionFormat
+    let markdown: Queue<Block>
     let videoTitle: String?
     let videoDescription: String?
     let videoAuthors: [Author]
     let accessLevel: AccessLevel
     let published: Bool
     let estimatedMinutes: Int
-    let learningObjectives: [LearningObjective]
+    var learningObjectives: [LearningObjective]
     let topic: Topic
     
     enum CodingKeys: String, CodingKey {
@@ -26,10 +29,10 @@ final class Instruction: Content, Encodable {
         case title
         case description
         case format
+        case markdown
         case accessLevel = "access_level"
         case published
         case estimatedMinutes = "estimated_minutes"
-        case markdown
         case learningObjectives = "learning_objectives"
         
         // Video Based
@@ -39,12 +42,12 @@ final class Instruction: Content, Encodable {
         case videoAuthors = "video_authors"
     }
     
-    init(title: String, description: String, markdown: String, accessLevel: AccessLevel, estimatedMinutes: Int, learningObjectives: [LearningObjective], topic: Topic) {
+    init(title: String, description: String, markdown: Queue<Block>, accessLevel: AccessLevel, estimatedMinutes: Int, topic: Topic) {
         self.title = title
         self.description = description
         self.format = .markdown
         self.markdown = markdown
-        self.learningObjectives = learningObjectives
+        self.learningObjectives = []
         self.published = false
         self.estimatedMinutes = estimatedMinutes
         self.videoTitle = nil
@@ -54,12 +57,12 @@ final class Instruction: Content, Encodable {
         self.topic = topic
     }
     
-    init(title: String, description: String, videoTitle: String, videoDescription: String, videoAuthors: [Author], accessLevel: AccessLevel, estimatedMinutes: Int, learningObjectives: [LearningObjective], topic: Topic) {
+    init(title: String, description: String, videoTitle: String, videoDescription: String, videoAuthors: [Author], accessLevel: AccessLevel, estimatedMinutes: Int, topic: Topic) {
         self.title = title
         self.description = description
         self.format = .video
-        self.markdown = nil
-        self.learningObjectives = learningObjectives
+        self.markdown = Queue<Block>()
+        self.learningObjectives = []
         self.published = false
         self.estimatedMinutes = estimatedMinutes
         self.videoTitle = videoTitle
@@ -71,15 +74,14 @@ final class Instruction: Content, Encodable {
     
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        let typeName = String(describing: type(of: self))
-        try container.encode(typeName, forKey: .type)
+        try container.encode("Instruction", forKey: .type)
         try container.encode(title, forKey: .title)
         try container.encode(description, forKey: .description)
         try container.encode(format, forKey: .format)
         
         switch format {
         case .markdown:
-            try container.encodeIfPresent(markdown, forKey: .markdown)
+            try container.encode("Update this", forKey: .markdown)
             try container.encode(estimatedMinutes, forKey: .estimatedMinutes)
         case .video:
             try container.encodeIfPresent(videoTitle, forKey: .videoTitle)
