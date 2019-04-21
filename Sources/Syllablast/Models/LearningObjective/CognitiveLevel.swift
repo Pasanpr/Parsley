@@ -7,8 +7,18 @@
 
 import Foundation
 
-enum CognitiveLevel: Int {
+enum CognitiveLevel: String, Encodable {
     case recall
     case intepretation
     case synthesis
+}
+
+extension CognitiveLevel {
+    init(id: Int) {
+        switch id {
+        case 2: self = .intepretation
+        case 3: self = .synthesis
+        default: fatalError()
+        }
+    }
 }

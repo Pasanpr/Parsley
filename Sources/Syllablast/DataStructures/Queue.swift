@@ -23,6 +23,10 @@ public struct Queue<T> {
         return count == 0
     }
     
+    public var isNotEmpty: Bool {
+        return !isEmpty
+    }
+    
     public var count: Int {
         return array.count - head
     }
@@ -55,6 +59,37 @@ public struct Queue<T> {
     }
 }
 
+public struct QueueIterator<T>: IteratorProtocol {
+    var currentQueue: Queue<T>
+    var currentIndex = 0
+    
+    init(queue: Queue<T>) {
+        self.currentQueue = queue
+    }
+    
+    public mutating func next() -> T? {
+        let element = currentQueue.peek(by: currentIndex)
+        currentIndex += 1
+        return element
+    }
+}
+
+extension Queue: Sequence {
+    public func makeIterator() -> QueueIterator<T> {
+        return QueueIterator(queue: self)
+    }
+}
+
+extension Queue: CustomStringConvertible {
+    public var description: String {
+        return array.description
+    }
+}
+
+enum PopOrStop {
+    case pop, stop
+}
+
 extension Queue {
     public func peek() -> T? {
         return peek(by: 0)
@@ -63,5 +98,14 @@ extension Queue {
     public func peek(by n: Int) -> T? {
         guard head + n < array.count, let element = array[head + n] else { return nil }
         return element
+    }
+    
+    mutating func dequeueWhile(_ predicate: (T?) throws -> PopOrStop) rethrows -> Queue<T> {
+        var newQueue = Queue<T>()
+        while !isEmpty, case .pop = try predicate(peek()) {
+            newQueue.enqueue(dequeue()!)
+        }
+        
+        return newQueue
     }
 }

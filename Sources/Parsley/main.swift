@@ -5,7 +5,6 @@ import Commander
  Parsley
  ----------
  Easily automate Treehouse admin tasks.
- All commands should be run in root project directory specified in..
  
  Commands:
  
@@ -27,10 +26,13 @@ Group {
     $0.command("generate",
                Flag("admin", description: "Generate admin.yml file for course uploads. Created at target path admin/ by default"),
                Flag("learning-objectives", description: ""),
+               Option("path", default: "", description: "Path to scripts folder"),
                description: "Generates files. Requires subcommand")
-    { admin, learningObjectives in
+    { admin, learningObjectives, path in
         if admin {
-            try Parsley.generateAdmin()
+            do {
+                try Parsley.generateAdmin(path: path)
+            }
         } else if learningObjectives  {
             try Parsley.generateLearningObjectives()
         }

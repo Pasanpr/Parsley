@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum RecordingMode {
-    case onSet
-    case screencast
+enum RecordingMode: String {
+    case onSet = "On Set"
+    case screencast = "Screencast"
 }

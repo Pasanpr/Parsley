@@ -6,11 +6,33 @@
 //
 
 import Foundation
+import SwiftMark
 
-protocol Step {
-    var title: String { get }
-    var description: String { get }
-    var accessLevel: AccessLevel { get }
-    var published: Bool { get }
-    var learningObjectives: [LearningObjective] { get }
+enum Step<View, DefinitionStore>: Encodable where View: BidirectionalCollection, DefinitionStore: ReferenceDefinitionProtocol {
+    case video(Video<View, DefinitionStore>)
+    case instruction(Instruction)
+    case codeChallenge(CodeChallenge)
+    case quiz(Quiz)
+    
+    public func encode(to encoder: Encoder) throws {
+        switch self {
+        case .video(let video):
+            try video.encode(to: encoder)
+        case .instruction(let instruction):
+            try instruction.encode(to: encoder)
+        default:
+            fatalError()
+//        case .codeChallenge(let cc):
+//            try cc.encode(to: encoder)
+//        case .quiz(let quiz):
+//            try quiz.encode(to: encoder)
+        }
+    }
+}
+
+enum StepType: String {
+    case video = "Video"
+    case instruction = "Instruction"
+    case codeChallenge = "Code Challenge"
+    case quiz = "Quiz"
 }

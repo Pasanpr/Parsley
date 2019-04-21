@@ -6,10 +6,28 @@
 //
 
 import Foundation
+import SwiftMark
 
-public final class Course: Codable {
+public final class Syllabus<View, DefinitionStore, Codec>: Codable where View: BidirectionalCollection, DefinitionStore: ReferenceDefinitionProtocol, Codec: MarkdownParserCodec, View.Element == Codec.CodeUnit {
+    let course: Course<View, DefinitionStore, Codec>
+    
+    enum CodingKeys: String, CodingKey {
+        case course = "syllabus"
+    }
+    
+    init(course: Course<View, DefinitionStore, Codec>) {
+        self.course = course
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(course, forKey: .course)
+    }
+}
+
+public final class Course<View, DefinitionStore, Codec>: Codable where View: BidirectionalCollection, DefinitionStore: ReferenceDefinitionProtocol, Codec: MarkdownParserCodec, View.Element == Codec.CodeUnit {
     let title: String
-    let topic: String
+    let topic: Topic
     let courseDescription: String
     let status: Status
     let skillLevel: SkillLevel
@@ -18,7 +36,7 @@ public final class Course: Codable {
     let estimatedPublishDate: String?
     let isVisibleOnRoadmap: Bool
     let responsibleTeacher: String
-    var stages: [Stage] = []
+    var stages: [Stage<View, DefinitionStore, Codec>] = []
     
     enum CodingKeys: String, CodingKey {
         case title
@@ -37,7 +55,7 @@ public final class Course: Codable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         self.title = try values.decode(String.self, forKey: .title)
-        self.topic = try values.decode(String.self, forKey: .topic)
+        self.topic = try values.decode(Topic.self, forKey: .topic)
         self.courseDescription = try values.decode(String.self, forKey: .courseDescription)
         self.status = try values.decode(Status.self, forKey: .status)
         self.skillLevel = try values.decodeIfPresent(SkillLevel.self, forKey: .skillLevel) ?? .beginner
@@ -46,10 +64,10 @@ public final class Course: Codable {
         self.estimatedPublishDate = try values.decodeIfPresent(String.self, forKey: .estimatedPublishDate)
         self.isVisibleOnRoadmap = try values.decodeIfPresent(Bool.self, forKey: .isVisibleOnRoadmap) ?? false
         self.responsibleTeacher = try values.decode(String.self, forKey: .responsibleTeacher)
-        self.stages = try values.decodeIfPresent([Stage].self, forKey: .stages) ?? []
+        self.stages = []
     }
     
-    public init(title: String, topic: String, description: String, status: Status, skillLevel: SkillLevel, accessLevel: AccessLevel, conceptsCovered: String, estimatedPublishDate: String?, roadmap: Bool, responsibleTeacher teacher: String) {
+    public init(title: String, topic: Topic, description: String, status: Status, skillLevel: SkillLevel, accessLevel: AccessLevel, conceptsCovered: String, estimatedPublishDate: String?, roadmap: Bool, responsibleTeacher teacher: String) {
         self.title = title
         self.topic = topic
         self.courseDescription = description
@@ -62,7 +80,7 @@ public final class Course: Codable {
         self.responsibleTeacher = teacher
     }
     
-    public func addStage(_ stage: Stage) {
+    public func addStage(_ stage: Stage<View, DefinitionStore, Codec>) {
         self.stages.append(stage)
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Topic {
-    case swift
-    case ios
+public enum Topic: String, Codable {
+    case swift = "Swift"
+    case ios = "iOS"
 }

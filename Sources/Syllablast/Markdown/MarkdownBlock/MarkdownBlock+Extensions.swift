@@ -40,7 +40,7 @@ extension MarkdownBlock {
         }
     }
     
-    private var isHeader: Bool {
+    var isHeaderBlock: Bool {
         switch self {
         case .header: return true
         default: return false
@@ -56,6 +56,13 @@ extension MarkdownBlock {
         }
     }
     
+    var headerBlock: HeaderBlock <View, RefDef>? {
+        switch self {
+        case .header(let h): return h
+        default: return nil
+        }
+    }
+    
     public var isFenceBlock: Bool {
         switch self {
         case .fence:
@@ -67,6 +74,13 @@ extension MarkdownBlock {
     public var fenceBlock: FenceBlock<View>? {
         switch self {
         case .fence(let f): return f
+        default: return nil
+        }
+    }
+    
+    public var referenceDefinitionBlock: ReferenceDefinitionBlock<View, RefDef>? {
+        switch self {
+        case .referenceDefinition(let r): return r
         default: return nil
         }
     }

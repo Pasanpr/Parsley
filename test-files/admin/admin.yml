@@ -1,18 +1,88 @@
-title: Swift Arrays
-topic: Swift
-description: In the past we've only worked with a single item of data in a constant
-  or a variable. There's much more to this of course, and working with groups or collections
-  of data is an important part of programming. In this course we'll look at the the
-  first fundamental type that we use in Swift to represent these collections - Arrays
-status: New
-skill_level: Beginner
-access_level: Basic
-concepts_covered: 'Declaring array literals
+---
+syllabus:
+  title: Swift Arrays
+  topic: Swift
+  description: In the past we've only worked with a single item of data in a constant
+    or a variable. There's much more to this of course, and working with groups or
+    collections of data is an important part of programming. In this course we'll
+    look at the the first fundamental type that we use in Swift to represent these
+    collections - Arrays
+  status: New
+  skill_level: Beginner
+  access_level: Basic
+  concepts_covered: 'Declaring array literals
 
-  Appending, inserting, updating and removing elements
+    Appending, inserting, updating and removing elements
 
-  For in loops'
-estimated_publish_date: 2019-05-01
-roadmap: false
-responsible_teacher: pasan@teamtreehouse.com
-stages: []
+    For in loops'
+  estimated_publish_date: 2019-05-01
+  roadmap: false
+  responsible_teacher: pasan@teamtreehouse.com
+  stages:
+  - title: Storing Data Sequentially
+    description: 'Arrays are one of many different collection types in Swift. Let''s
+      start by understanding what arrays are and take a look at the syntax used to
+      create them
+
+      '
+    topics:
+    - Swift
+    topics_covered:
+    - Array basics
+    - Declaring array literals
+    - Defining array types
+    steps:
+    - type: Video<String, String>
+      title: Lists of Data
+      description: In Swift the Array type is used to represent lists of data. In
+        this video lets talk about what an array is and how we create array literals
+      access_level: Basic
+      published: false
+      authors: []
+      learning_objectives:
+      - title: Recall that a collection is a structure that contains multiple values
+        cognitive_level: recall
+        topic: Swift
+      - title: Recall that in Swift there are three basic collection types - Array,
+          Dictionary and Set
+        cognitive_level: recall
+        topic: Swift
+      - title: Recall that data in an array is stored in an ordered sequence
+        cognitive_level: recall
+        topic: Swift
+      - title: Recall that an array can be thought of as a ordered series of constants
+          where instead of a name each constant is assigned a number and the entire
+          array is given a name
+        cognitive_level: recall
+        topic: Swift
+      - title: Recall that the number used to refer to containers in an array is known
+          as an index
+        cognitive_level: recall
+        topic: Swift
+      - title: Recall that array indexes in Swift start at 0 not 1
+        cognitive_level: recall
+        topic: Swift
+      - title: Recall that when an array is assigned to a constant, the name of the
+          constant refers to the entire array
+        cognitive_level: recall
+        topic: Swift
+      - title: Recall that a data structure is a way of storing data along with defined
+          ways of operating on the data
+        cognitive_level: recall
+        topic: Swift
+      - title: Recall that to create an array literal the first step is to write out
+          a set of square brackets
+        cognitive_level: recall
+        topic: Swift
+      - title: Recall that to create an array literal the second step is to list out
+          the values inside the square brackets separated by commas
+        cognitive_level: recall
+        topic: Swift
+      - title: Recall that to work with an array literal previously declared it needs
+          to be assigned to a variable or constant
+        cognitive_level: recall
+        topic: Swift
+      - title: Differentiate between declaring an array literal and assigning it to
+          a constant
+        cognitive_level: intepretation
+        topic: Swift

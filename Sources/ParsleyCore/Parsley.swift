@@ -17,13 +17,14 @@ public final class Parsley {
     ///
     /// Scripts must be located in a `scripts` directory and can named either
     /// `scripts.md` or following the `Stage-X.md` convention
-    public static func generateAdmin() throws {
+    public static func generateAdmin(path: String) throws {
         var source = ""
-        let scripts: [File] = try Folder(path: "scripts").files.enumerated().filter({ return $0.element.name.contains("Stage")}).map({ $0.element })
+        let scriptsPath = path == "" ? "/scripts" : path + "/scripts"
+        let scripts: [File] = try Folder(path: scriptsPath).files.enumerated().filter({ return $0.element.name.contains("Stage")}).map({ $0.element })
         
         if scripts.isEmpty {
             // Scripts are named "scripts" or "script"
-            guard let file = try Folder(path: "scripts").files.enumerated().filter({ return $0.element.name.lowercased().contains("script")}).map({ $0.element }).first else {
+            guard let file = try Folder(path: scriptsPath).files.enumerated().filter({ return $0.element.name.lowercased().contains("script")}).map({ $0.element }).first else {
                 throw ParsleyError.missingScripts
             }
             
@@ -35,7 +36,7 @@ public final class Parsley {
         let syllablast = Syllablast(source: source, definitionStore: DefaultReferenceDefinitionStore(), codec: CharacterMarkdownCodec.self)
         let yaml = try syllablast.generateAdminYaml()
         
-        let folder = try Folder.current.createSubfolderIfNeeded(withName: "admin")
+        let folder = try Folder(path: path).createSubfolderIfNeeded(withName: "admin")
         let admin = try folder.createFileIfNeeded(withName: "admin.yml")
         try admin.write(string: yaml)
     }

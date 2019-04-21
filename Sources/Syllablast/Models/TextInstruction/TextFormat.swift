@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum TextFormat {
-    case markdown
-    case video
+enum TextFormat: String, Encodable {
+    case markdown = "Markdown"
+    case video = "Video"
 }

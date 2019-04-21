@@ -27,3 +27,9 @@ public struct Fence<View, Codec> where View:BidirectionalCollection, Codec: Mark
         return self.body.isEmpty
     }
 }
+
+extension Fence {
+    public var isYamlBlock: Bool {
+        return self.name == "yaml"
+    }
+}
