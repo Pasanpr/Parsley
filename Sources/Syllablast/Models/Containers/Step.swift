@@ -20,12 +20,11 @@ enum Step<View, DefinitionStore>: Encodable where View: BidirectionalCollection,
             try video.encode(to: encoder)
         case .instruction(let instruction):
             try instruction.encode(to: encoder)
-        default:
-            fatalError()
-//        case .codeChallenge(let cc):
-//            try cc.encode(to: encoder)
+        case .codeChallenge(let cc):
+            try cc.encode(to: encoder)
 //        case .quiz(let quiz):
 //            try quiz.encode(to: encoder)
+        default: fatalError()
         }
     }
 }
@@ -33,6 +32,6 @@ enum Step<View, DefinitionStore>: Encodable where View: BidirectionalCollection,
 enum StepType: String {
     case video = "Video"
     case instruction = "Instruction"
-    case codeChallenge = "Code Challenge"
+    case codeChallenge = "Code"
     case quiz = "Quiz"
 }

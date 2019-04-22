@@ -94,10 +94,6 @@ syllabus:
       estimated_minutes: 5
       access_level: Basic
       published: false
-      learning_objectives:
-      - title: Understand how to use Treehouse to learn effectively
-        cognitive_level: recall
-        topic: Swift
-      - title: Know where to go if they have questions and how to ask for help
-        cognitive_level: recall
-        topic: Swift
+    - type: CodeChallenge
+      title: Concatenating Strings
+      sha: ' '

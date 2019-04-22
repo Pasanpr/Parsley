@@ -21,7 +21,7 @@ final class LearningObjectiveBuilder<View, DefinitionStore, Codec> where View: B
     
     func generateLearningObjectives() throws -> [LearningObjective] {
         guard let firstBlock = markdown.next(), firstBlock.isThematicBreak else {
-            fatalError("Exepected thematic break before learning objective section")
+            return []
         }
         
         let queue = popUntilEnd()

@@ -134,7 +134,7 @@ format: Markdown
 estimated_minutes: 5
 ```
 
-If this is your first time at Treehouse, welcome! In this document we’re going to talk about how you can fully utilize the resources Treehouse provides to get the best learning experience. If you've been here a while and know how to use the Treehouse app, go all the way to the bottom of this document and hit "Ok, I got it". [LO-5]
+If this is your first time at Treehouse, welcome! In this document we’re going to talk about how you can fully utilize the resources Treehouse provides to get the best learning experience. If you've been here a while and know how to use the Treehouse app, go all the way to the bottom of this document and hit "Ok, I got it".
 
 All Treehouse courses consist of a combination of units:
 1. Videos, one of which you just watched
@@ -159,7 +159,7 @@ In addition you will find links to blog posts, glossary items, code snippets and
 
 Speaking of questions, all Video and Instruction pages also consist of a **Questions** section. Here you will find questions that other students have asked and answered about material introduced in the video or instruction step. If you find that you have some questions about material that was not addressed in either the video or the notes, this is a good place to start.
 
-There’s a high chance that another student has already asked the question you have and has received an answer. Before you jump into the [Treehouse Community][1] and ask a question, skim the existing ones to see if your answer exists. If not, ask away! If the thought of asking a question on a public forum makes you uncomfortable, don’t worry we [have a guide for that](./HowToAskForHelp.md) [LO-6].
+There’s a high chance that another student has already asked the question you have and has received an answer. Before you jump into the [Treehouse Community][https://teamtreehouse.com/community] and ask a question, skim the existing ones to see if your answer exists. If not, ask away! If the thought of asking a question on a public forum makes you uncomfortable, don’t worry we [have a guide for that](./HowToAskForHelp.md).
 
 #### Downloads
 
@@ -201,11 +201,18 @@ Regardless of the format, you should definitely make time to work through these 
 
 Alright, if you’re ready, hit “Ok, I got it” to head to the next step.
 
-[1]: https://teamtreehouse.com/community
+## Code Challenge - Concatenating Strings
 
----
+In the editor below I've defined a constant named `greeting` and assigned a string literal. 
 
-[LO-5]: Understand how to use Treehouse to learn effectively
+Task 1: Define a constant named `name` and assign a string literal with your name to it.
 
-[LO-6]: Know where to go if they have questions and how to ask for help
+Task 2: We want to display a personalized greeting in our app. Concatenate `greeting` and `name` to output a string literal and assign it to a constant named `message`. If your name is Sue, then the output should read "Hi Sue!".  
 
+```swift
+let greeting = "Hi"
+let name = "Pasan"
+
+// Hi Pasan!
+let message = greeting + " " + name + "!"
+```

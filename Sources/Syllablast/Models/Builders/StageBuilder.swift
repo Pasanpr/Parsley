@@ -8,6 +8,12 @@
 import Foundation
 import SwiftMark
 
+extension StringProtocol {
+    func whitespaceStripped() -> String {
+        return self.replacingOccurrences(of: " ", with: "")
+    }
+}
+
 enum StageBuilderError: Error {
     case invalidStageHeader
     case invalidStageMetadata
@@ -75,8 +81,10 @@ final class StageBuilder<View, DefinitionStore, Codec> where View: Bidirectional
             let instructionBuilder = InstructionBuilder(header: header, markdown: markdown)
             let instruction = try instructionBuilder.generateInstruction(withTopic: topic)
             return Step.instruction(instruction)
-            fatalError()
-        default:
+        case .codeChallenge:
+            let cc  = try CodeChallengeBuilder(header: header, markdown: markdown).generateCodeChallenge()
+            return Step.codeChallenge(cc)
+        case .quiz:
             fatalError()
         }
     }

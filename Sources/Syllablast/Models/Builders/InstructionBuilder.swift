@@ -23,10 +23,12 @@ final class InstructionBuilder<View, DefinitionStore, Codec> where View: Bidirec
         let metadata = try readInstructionMetadata()
         
         if metadata.format == .markdown {
-            let markdown = try readMarkdown()
-            let instruction = Instruction(title: title, description: metadata.description, markdown: markdown, accessLevel: metadata.accessLevel, estimatedMinutes: metadata.estimatedMinutes, topic: topic)
+            let instructionMarkdown = try readMarkdown()
+            let instruction = Instruction(title: title, description: metadata.description, markdown: instructionMarkdown, accessLevel: metadata.accessLevel, estimatedMinutes: metadata.estimatedMinutes, topic: topic)
             
-            instruction.learningObjectives = try generateLearningObjectives(withParent: instruction)
+            if !isAtEndOfStep() {
+                instruction.learningObjectives = try generateLearningObjectives(withParent: instruction)
+            }
             
             return instruction
         } else {
@@ -67,5 +69,13 @@ final class InstructionBuilder<View, DefinitionStore, Codec> where View: Bidirec
     
     private func generateLearningObjectives(withParent parent: Content) throws -> [LearningObjective] {
         return try LearningObjectiveBuilder(markdown: markdown, parent: parent).generateLearningObjectives()
+    }
+    
+    private func isAtEndOfStep() -> Bool {
+        guard let next = markdown.peek(), next.isHeader(ofLevel: 2) else {
+            return false
+        }
+        
+        return true
     }
 }
