@@ -22,9 +22,8 @@ enum Step<View, DefinitionStore>: Encodable where View: BidirectionalCollection,
             try instruction.encode(to: encoder)
         case .codeChallenge(let cc):
             try cc.encode(to: encoder)
-//        case .quiz(let quiz):
-//            try quiz.encode(to: encoder)
-        default: fatalError()
+        case .quiz(let quiz):
+            try quiz.encode(to: encoder)
         }
     }
 }

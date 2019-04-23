@@ -35,3 +35,16 @@ class LearningObjective: Encodable {
         try container.encode(topic, forKey: .topic)
     }
 }
+
+extension LearningObjective: Equatable {
+    public static func ==(lhs: LearningObjective, rhs: LearningObjective) -> Bool {
+        return lhs.id == rhs.id && lhs.title == rhs.title && lhs.cognitiveLevel == rhs.cognitiveLevel
+    }
+}
+
+extension LearningObjective: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.id)
+        hasher.combine(self.title)
+    }
+}

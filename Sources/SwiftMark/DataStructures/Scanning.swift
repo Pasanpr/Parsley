@@ -7,24 +7,24 @@
 
 import Foundation
 
-struct Scanner<Data> where Data: BidirectionalCollection {
+public struct Scanner<Data> where Data: BidirectionalCollection {
     let data: Data
-    var startIndex: Data.Index
-    var endIndex: Data.Index
+    public var startIndex: Data.Index
+    public var endIndex: Data.Index
     
-    init(data: Data, startIndex: Data.Index? = nil, endIndex: Data.Index? = nil) {
+    public init(data: Data, startIndex: Data.Index? = nil, endIndex: Data.Index? = nil) {
         self.data = data
         self.startIndex = startIndex ?? data.startIndex
         self.endIndex = endIndex ?? data.endIndex
     }
 }
 
-enum PopOrStop { case pop, stop }
+public enum PopOrStop { case pop, stop }
 
 extension Scanner {
-    var indices: Range<Data.Index> { return startIndex..<endIndex }
+    public var indices: Range<Data.Index> { return startIndex..<endIndex }
     
-    mutating func popWhile(_ predicate: (Data.Element?) throws -> PopOrStop) rethrows {
+    public mutating func popWhile(_ predicate: (Data.Element?) throws -> PopOrStop) rethrows {
         var currentIndex = startIndex
         while currentIndex != endIndex, case .pop = try predicate(data[currentIndex])  {
             currentIndex = data.index(after: currentIndex)
@@ -37,7 +37,7 @@ extension Scanner {
         startIndex = currentIndex
     }
     
-    func peek() -> Data.Element? {
+    public func peek() -> Data.Element? {
         guard startIndex != endIndex else {
             return nil
         }
@@ -45,7 +45,7 @@ extension Scanner {
         return data[startIndex]
     }
     
-    mutating func pop() -> Data.Element? {
+    public mutating func pop() -> Data.Element? {
         guard startIndex != endIndex else {
             return nil
         }
@@ -61,7 +61,7 @@ extension Scanner {
 extension Scanner where Data.Element: Equatable {
     /// Pop elements from the scanner until reaching an element equal to `x`.
     /// The element equal to `x` won’t be popped.
-    mutating func popUntil(_ x: Data.Element) {
+    public mutating func popUntil(_ x: Data.Element) {
         var currentIndex = startIndex
         
         while currentIndex != endIndex && data[currentIndex] != x {
@@ -71,7 +71,7 @@ extension Scanner where Data.Element: Equatable {
         startIndex = currentIndex
     }
     
-    mutating func popWhile(_ x: Data.Element) {
+    public mutating func popWhile(_ x: Data.Element) {
         var currentIndex = startIndex
         
         while currentIndex != endIndex && data[currentIndex] == x {
@@ -81,7 +81,7 @@ extension Scanner where Data.Element: Equatable {
         startIndex = currentIndex
     }
     
-    mutating func pop(_ x: Data.Element) -> Bool {
+    public mutating func pop(_ x: Data.Element) -> Bool {
         guard startIndex != endIndex && data[startIndex] == x else {
             return false
         }
@@ -93,7 +93,7 @@ extension Scanner where Data.Element: Equatable {
     
     // Pop an element from the scanner if it is not equal to `x`.
     /// - returns: the element that was popped, `nil` otherwise
-    mutating func pop(ifNot x: Data.Iterator.Element) -> Data.Iterator.Element? {
+    public mutating func pop(ifNot x: Data.Iterator.Element) -> Data.Iterator.Element? {
         guard startIndex != endIndex && data[startIndex] != x else {
             return nil
         }

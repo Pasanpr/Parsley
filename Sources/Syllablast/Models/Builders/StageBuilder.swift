@@ -23,6 +23,7 @@ enum StageBuilderError: Error {
 final class StageBuilder<View, DefinitionStore, Codec> where View: BidirectionalCollection, DefinitionStore: ReferenceDefinitionStore, Codec: MarkdownParserCodec, View.Element == Codec.CodeUnit {
     private var markdown: Markdown<View, DefinitionStore, Codec>
     private let topic: Topic
+    private var learningObjectives: Set<LearningObjective> = Set<LearningObjective>()
     
     init(markdown: Markdown<View, DefinitionStore, Codec>, topic: Topic) {
         self.markdown = markdown
@@ -76,16 +77,27 @@ final class StageBuilder<View, DefinitionStore, Codec> where View: Bidirectional
         case .video:
             let videoBuilder = VideoBuilder(header: header, markdown: markdown)
             let video = try videoBuilder.generateVideo(withTopic: topic)
+            
+            video.learningObjectives.forEach {
+                self.learningObjectives.insert($0)
+            }
+            
             return Step.video(video)
         case .instruction:
             let instructionBuilder = InstructionBuilder(header: header, markdown: markdown)
             let instruction = try instructionBuilder.generateInstruction(withTopic: topic)
+            
+            instruction.learningObjectives.forEach {
+                self.learningObjectives.insert($0)
+            }
+            
             return Step.instruction(instruction)
         case .codeChallenge:
             let cc  = try CodeChallengeBuilder(header: header, markdown: markdown).generateCodeChallenge()
             return Step.codeChallenge(cc)
         case .quiz:
-            fatalError()
+            let quiz = try QuizBuilder(header: header, markdown: markdown, learningObjectives: self.learningObjectives).generateQuiz()
+            return Step.quiz(quiz)
         }
     }
 }

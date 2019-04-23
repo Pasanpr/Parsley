@@ -216,3 +216,23 @@ let name = "Pasan"
 // Hi Pasan!
 let message = greeting + " " + name + "!"
 ```
+
+## Quiz - Recap: Strings
+
+```quiz
+::mc-true-*1
+
+Which of the following lines of code would result in the output shown below:
+<br>
+<pre><code>
+Good morning!
+It is 75 degrees today.
+</code><pre>
+
+[A-1-true] `"Good morning!" + "\n" + "It is 75 degrees today."`
+[F-1] Test feedback!
+
+[A-2] "`\"Good morning!\" + \"\t\" + \"It is 75 degrees today.\"`"
+
+[A-3] "`\"Good morning!\" + \"\r\" + \"It is 75 degrees today.\"`"
+```
