@@ -72,8 +72,10 @@ final class QuizBuilder<View, DefinitionStore, Codec> where View: BidirectionalC
             let shouldShuffleAnswers = formatSpecifier.shouldShuffleAnswers
             let question = try MultipleChoiceQuizQuestionBuilder(source: quizBody).generateQuestion(with: lo, shouldShuffleAnswers: shouldShuffleAnswers)
             return QuizQuestion.multipleChoice(question)
-        default:
-            fatalError()
+        case "fitb":
+            let question = try FillInTheBlankQuizQuestionBuilder(source: quizBody).generateQuestion(with: lo)
+            return QuizQuestion.fitb(question)
+        default: fatalError()
         }
     }
     

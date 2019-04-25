@@ -53,6 +53,12 @@ final class Video<View, DefinitionStore>: Content, Encodable where View: Bidirec
 }
 
 extension Video {
+    var type: ContentType {
+        return .video
+    }
+}
+
+extension Video {
     func addLearningObjectives(_ learningObjectives: [LearningObjective]) {
         self.learningObjectives = learningObjectives
     }

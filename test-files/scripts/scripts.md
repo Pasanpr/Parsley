@@ -201,6 +201,7 @@ Regardless of the format, you should definitely make time to work through these 
 
 Alright, if you’re ready, hit “Ok, I got it” to head to the next step.
 
+
 ## Code Challenge - Concatenating Strings
 
 In the editor below I've defined a constant named `greeting` and assigned a string literal. 
@@ -229,10 +230,10 @@ Good morning!
 It is 75 degrees today.
 </code><pre>
 
-[A-1-true] `"Good morning!" + "\n" + "It is 75 degrees today."`
+[A-1-true] "Good morning!" + "\n" + "It is 75 degrees today."
 [F-1] Test feedback!
 
-[A-2] "`\"Good morning!\" + \"\t\" + \"It is 75 degrees today.\"`"
+[A-2] "Good morning!" + "\t" + "It is 75 degrees today."
 
-[A-3] "`\"Good morning!\" + \"\r\" + \"It is 75 degrees today.\"`"
+[A-3] Good morning!" + "\r" + "It is 75 degrees today."
 ```

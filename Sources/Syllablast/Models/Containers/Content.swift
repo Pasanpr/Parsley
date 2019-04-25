@@ -8,6 +8,12 @@
 import Foundation
 
 protocol Content: class {
+    var type: ContentType { get }
     var title: String { get }
     var topic: Topic { get }
+}
+
+enum ContentType {
+    case video
+    case instruction
 }

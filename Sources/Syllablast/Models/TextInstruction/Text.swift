@@ -98,3 +98,9 @@ final class Instruction<View, DefinitionStore>: Content, Encodable where View: B
     }
 }
 
+extension Instruction {
+    var type: ContentType {
+        return .instruction
+    }
+}
+
