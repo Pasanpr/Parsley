@@ -17,11 +17,11 @@ final class MultipleChoiceQuizQuestionBuilder {
         self.scanner = Scanner(data: source)
     }
     
-    func generateQuestion(with lo: LearningObjective, shouldShuffleAnswers shuffle: Bool) throws -> MultipleChoiceQuestion {
+    func generateQuestion(with lo: LearningObjective, shouldShuffleAnswers shuffle: Bool, canSelectMultipleAnswers: Bool) throws -> MultipleChoiceQuestion {
         let question = parseQuestionString()
         let answers = try generateAnswers()
         
-        return MultipleChoiceQuestion(question: question, associatedLearningObjective: lo, shuffleAnswers: shuffle, answers: answers)
+        return MultipleChoiceQuestion(question: question, associatedLearningObjective: lo, shuffleAnswers: shuffle, answers: answers, canSelectMultipleAnswers: canSelectMultipleAnswers)
     }
     
     private func parseQuestionString() -> String {

@@ -70,8 +70,12 @@ final class QuizBuilder<View, DefinitionStore, Codec> where View: BidirectionalC
         switch formatSpecifier.type {
         case "mc":
             let shouldShuffleAnswers = formatSpecifier.shouldShuffleAnswers
-            let question = try MultipleChoiceQuizQuestionBuilder(source: quizBody).generateQuestion(with: lo, shouldShuffleAnswers: shouldShuffleAnswers)
+            let question = try MultipleChoiceQuizQuestionBuilder(source: quizBody).generateQuestion(with: lo, shouldShuffleAnswers: shouldShuffleAnswers, canSelectMultipleAnswers: false)
             return QuizQuestion.multipleChoice(question)
+        case "mcma":
+            let shouldShuffleAnswers = formatSpecifier.shouldShuffleAnswers
+            let question = try MultipleChoiceQuizQuestionBuilder(source: quizBody).generateQuestion(with: lo, shouldShuffleAnswers: shouldShuffleAnswers, canSelectMultipleAnswers: true)
+            return QuizQuestion.multipleChoiceMultipleAnswer(question)
         case "fitb":
             let question = try FillInTheBlankQuizQuestionBuilder(source: quizBody).generateQuestion(with: lo)
             return QuizQuestion.fitb(question)

@@ -8,18 +8,20 @@
 import Foundation
 
 final class MultipleChoiceQuestion: Encodable {
+    let canSelectMultipleAnswers: Bool
     let question: String
     let associatedLearningObjective: LearningObjective
     fileprivate let learningObjectives: [QuizLearningObjective]
     let shuffleAnswers: Bool
     let answers: [MultipleChoiceAnswer]
     
-    init(question: String, associatedLearningObjective: LearningObjective, shuffleAnswers: Bool, answers: [MultipleChoiceAnswer]) {
+    init(question: String, associatedLearningObjective: LearningObjective, shuffleAnswers: Bool, answers: [MultipleChoiceAnswer], canSelectMultipleAnswers: Bool) {
         self.question = question
         self.associatedLearningObjective = associatedLearningObjective
         self.learningObjectives = [QuizLearningObjective(title: associatedLearningObjective.title, topic: associatedLearningObjective.topic)]
         self.shuffleAnswers = shuffleAnswers
         self.answers = answers
+        self.canSelectMultipleAnswers = canSelectMultipleAnswers
     }
     
     enum CodingKeys: String, CodingKey {
@@ -39,7 +41,12 @@ final class MultipleChoiceQuestion: Encodable {
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode("MultipleChoice", forKey: .type)
+        
+        if canSelectMultipleAnswers {
+            try container.encode("MultipleChoiceMultipleAnswer", forKey: .type)
+        } else {
+            try container.encode("MultipleChoice", forKey: .type)
+        }
         
         guard let parent = associatedLearningObjective.parent else {
             fatalError("Learning Objetives must have a parent content type")

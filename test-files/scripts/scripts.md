@@ -266,3 +266,23 @@ This is a true false question
 [F-F] This is false feedback
 [F-T] This is true feedback
 ```
+
+---
+
+```quiz
+::mcma-true-*1
+
+Which of the following lines of code would result in the output shown below:
+<br>
+<pre><code>
+Good morning!
+It is 75 degrees today.
+</code><pre>
+
+[A-1-true] "Good morning!" + "\n" + "It is 75 degrees today."
+[F-1] Test feedback!
+
+[A-2-true] "Good morning!" + "\t" + "It is 75 degrees today."
+
+[A-3-true] Good morning!" + "\r" + "It is 75 degrees today."
+```

@@ -11,12 +11,14 @@ enum QuizQuestion: Encodable {
     case multipleChoice(MultipleChoiceQuestion)
     case fitb(FillInTheBlankQuestion)
     case trueFalse(TrueFalseQuestion)
+    case multipleChoiceMultipleAnswer(MultipleChoiceQuestion)
     
     var description: String {
         switch self {
         case .multipleChoice: return "MultipleChoice"
         case .fitb: return "FillInTheBlank"
         case .trueFalse: return "TrueFalse"
+        case .multipleChoiceMultipleAnswer: return "MultipleChoiceMultipleAnswer"
         }
     }
     
@@ -28,6 +30,8 @@ enum QuizQuestion: Encodable {
             try fitb.encode(to: encoder)
         case .trueFalse(let tf):
             try tf.encode(to: encoder)
+        case .multipleChoiceMultipleAnswer(let mcma):
+            try mcma.encode(to: encoder)
         }
     }
 }

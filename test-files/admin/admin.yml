@@ -100,7 +100,7 @@ syllabus:
     - type: Quiz
       title: 'Recap: Strings'
       description: .
-      total_questions: 3
+      total_questions: 4
       shuffle_questions: true
       uses_markdown: true
       questions:
@@ -150,3 +150,29 @@ syllabus:
           topic: Swift
         true_feedback: This is true feedback
         false_feedback: This is false feedback
+      - type: MultipleChoiceMultipleAnswer
+        course_video: Lists of Data
+        question: 'Which of the following lines of code would result in the output
+          shown below:
+
+          <br>
+
+          <pre><code>
+
+          Good morning!
+
+          It is 75 degrees today.
+
+          </code><pre>'
+        shuffleAnswers: true
+        learning_objectives:
+        - title: Recall that a collection is a structure that contains multiple values
+          topic: Swift
+        answers:
+        - answer: '"Good morning!" + "\n" + "It is 75 degrees today."'
+          correct: true
+          feedback: Test feedback!
+        - answer: '"Good morning!" + "\t" + "It is 75 degrees today."'
+          correct: true
+        - answer: Good morning!" + "\r" + "It is 75 degrees today."
+          correct: true
