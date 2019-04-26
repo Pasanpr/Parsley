@@ -237,3 +237,32 @@ It is 75 degrees today.
 
 [A-3] Good morning!" + "\r" + "It is 75 degrees today."
 ```
+
+---
+
+```quiz
+::fitb-*1
+
+Fill in the blank to complete the while loop defined below:
+~~~
+var counter = 0
+
+___ counter < 10 {
+    print(counter)
+    counter += 1
+}
+~~~
+
+[A-0-false-true] while
+```
+
+---
+
+```quiz
+::tf-true-*1
+
+This is a true false question
+
+[F-F] This is false feedback
+[F-T] This is true feedback
+```

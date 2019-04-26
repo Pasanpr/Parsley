@@ -21,7 +21,7 @@ final class FillInTheBlankQuizQuestionBuilder {
         let question = parseQuestionString()
         let answers = try generateAnswers()
         
-        return FillInTheBlankQuestion(question: "", associatedLearningObjective: lo, answers: [])
+        return FillInTheBlankQuestion(question: question, associatedLearningObjective: lo, answers: answers)
     }
     
     private func parseQuestionString() -> String {

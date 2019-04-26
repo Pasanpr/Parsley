@@ -49,4 +49,8 @@ struct QuizFormatSpecifier {
     var shouldShuffleAnswers: Bool {
         return options[QuizFormatSpecifier.OptionsKey.shouldShuffleAnswers] ?? true
     }
+    
+    var trueFalseAnswer: Bool {
+        return options[QuizFormatSpecifier.OptionsKey.trueFalseAnswer]!
+    }
 }

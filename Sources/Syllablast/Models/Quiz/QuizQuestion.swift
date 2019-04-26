@@ -24,8 +24,10 @@ enum QuizQuestion: Encodable {
         switch self {
         case .multipleChoice(let mc):
             try mc.encode(to: encoder)
-        default:
-            fatalError()
+        case .fitb(let fitb):
+            try fitb.encode(to: encoder)
+        case .trueFalse(let tf):
+            try tf.encode(to: encoder)
         }
     }
 }

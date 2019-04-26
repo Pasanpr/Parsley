@@ -14,6 +14,12 @@ Assuming you write your scripts locally in Markdown, Parsley can generate a lot 
 $ parsley generate --admin
 ```
 
+To supply a path use the `--path` argument
+
+```bash
+$ parsley generate --admin --path path_to_scripts
+```
+
 :school: Generate list of all learning objectives in a course. Useful to get a detailed overview of what a course covers. Created in  `scripts/` by default. 
 
 ```bash
@@ -113,15 +119,15 @@ If you're wondering about the name, it is a portmanteau of Syllabus and AST (you
 
 **SwiftMark**
 
-A custom Markdown parser implemented in Swift. Most markdown parsers are built with the goal of rendering output and even those that generate an AST actually store the parsed text. Since Parsley only cares about specific portions of the text depending on the command you execute (metadata if you generate admin.yml, or actual scripts if you generate production docs) the generated AST instead stores indexes or markers for every node. 
+A custom Markdown parser implemented in Swift that returns an abstract syntax tree of Markdown blocks. Unlike most markdown parsers SwiftMark doesn't care about rendering output or storing the parsed text. Since Parsley only cares about specific portions of the text depending on the command you execute (metadata if you generate admin.yml, or actual scripts if you generate production docs) the generated AST instead stores indexes or markers for every block. 
 
-The spec for using Markdown to define a course and all its related information tries to stick to using established Markdown conventions (specifically Github Flavored Markdown) and not introduce any new "elements". If needed however this is possible but not super straightforward. The parser does not rely on regular expressions and instead creates tokens as characters are individually parsed.
+The spec for using Markdown to define a course and all its related information tries to stick to using established Markdown conventions (specifically Github Flavored Markdown) and not introduce any new "elements". If needed SwiftMark can be extended to support it. The parser does not rely on regular expressions however and instead creates tokens as characters are individually parsed.
 
-If you have questions, open an issue as a feature request and tag Pasan!
+If you have questions, open an issue as a feature request.
 
 ## Help, feedback or suggestions?
 
-- Run `$ parsley help` to display help for the tool itself or for any specific command.
+- Run `$ parsley --help` to display help for the tool itself or for any specific command.
 - Open an issue if you need help, if you found a bug, or if you want to discuss a feature request.
 - Open a PR if you want to make some change to Parsley.
 - Get in touch with Pasan in Slack

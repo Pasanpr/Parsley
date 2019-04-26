@@ -1,5 +1,6 @@
 import ParsleyCore
 import Commander
+import Darwin
 
 /*
  Parsley
@@ -35,6 +36,8 @@ Group {
             }
         } else if learningObjectives  {
             try Parsley.generateLearningObjectives()
+        } else {
+            fputs("generate requires a subcommand. Run parsley --help for help!", stderr)
         }
     }
     

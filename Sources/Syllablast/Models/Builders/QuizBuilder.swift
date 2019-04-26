@@ -75,6 +75,9 @@ final class QuizBuilder<View, DefinitionStore, Codec> where View: BidirectionalC
         case "fitb":
             let question = try FillInTheBlankQuizQuestionBuilder(source: quizBody).generateQuestion(with: lo)
             return QuizQuestion.fitb(question)
+        case "tf":
+            let question = try TrueFalseQuizQuestionBuilder(source: quizBody).generateQuestion(withAnswer: formatSpecifier.trueFalseAnswer, learningObjective: lo)
+            return QuizQuestion.trueFalse(question)
         default: fatalError()
         }
     }

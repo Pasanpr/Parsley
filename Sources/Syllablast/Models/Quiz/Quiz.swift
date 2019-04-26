@@ -7,6 +7,11 @@
 
 import Foundation
 
+struct QuizLearningObjective: Encodable {
+    let title: String
+    let topic: Topic
+}
+
 final class Quiz: Encodable {
     let title: String
     let totalQuestions: Int
@@ -46,12 +51,3 @@ final class Quiz: Encodable {
         try container.encode(questions, forKey: .questions)
     }
 }
-
-struct TrueFalseQuestion {
-    let question: String
-    let associatedLearningObjective: LearningObjective
-    let answer: Bool
-    let trueFeedback: String?
-    let falseFeedback: String?
-}
-

@@ -100,7 +100,7 @@ syllabus:
     - type: Quiz
       title: 'Recap: Strings'
       description: .
-      total_questions: 1
+      total_questions: 3
       shuffle_questions: true
       uses_markdown: true
       questions:
@@ -130,3 +130,23 @@ syllabus:
           correct: false
         - answer: Good morning!" + "\r" + "It is 75 degrees today."
           correct: false
+      - type: FillInTheBlank
+        course_video: Lists of Data
+        question: "Fill in the blank to complete the while loop defined below:\n~~~\nvar
+          counter = 0\n\n___ counter < 10 {\n    print(counter)\n    counter += 1\n}\n~~~"
+        learning_objectives:
+        - title: Recall that a collection is a structure that contains multiple values
+          topic: Swift
+        blanks:
+        - blank_index: 0
+          answer: while
+          use_string_validation: false
+          canonical: true
+      - type: TrueFalse
+        course_video: Lists of Data
+        question: This is a true false question
+        learning_objectives:
+        - title: Recall that a collection is a structure that contains multiple values
+          topic: Swift
+        true_feedback: This is true feedback
+        false_feedback: This is false feedback

@@ -14,11 +14,6 @@ final class MultipleChoiceQuestion: Encodable {
     let shuffleAnswers: Bool
     let answers: [MultipleChoiceAnswer]
     
-    fileprivate struct QuizLearningObjective: Encodable {
-        let title: String
-        let topic: Topic
-    }
-    
     init(question: String, associatedLearningObjective: LearningObjective, shuffleAnswers: Bool, answers: [MultipleChoiceAnswer]) {
         self.question = question
         self.associatedLearningObjective = associatedLearningObjective
