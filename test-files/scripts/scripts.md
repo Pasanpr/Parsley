@@ -48,6 +48,10 @@ Each collection, or data structure as they are commonly called, has a distinguis
 
 When we learned about constants we said one way we could think of a constant was as a box with a name containing some data. 
 
+```notes
+This is a test note
+```
+
 An array can be thought of as several of these boxes connected to one another and instead of a name, each box has a number associated with it [LO-4]. The first box, containing the first value stored in the array, starts with the number 0. Every box after is numbered sequentially, so the second box is 1, third is 2 and so on.
 
 We call this number an index and we can more formally say that an array is an indexed data structure [LO-5]. There's one important thing we need to keep in mind regarding arrays - the index always starts at 0, not 1 [LO-6]. This is a quirk of programming you will get used to and it's not a Swift thing - nearly all programming languages use 0 to access the first element in an array.
@@ -70,6 +74,10 @@ We're going to start in here with an empty file and a comment on the top.
 
 An array, as I mentioned earlier, is a data structure - meaning it is some way of storing related data with well defined ways to work with it [LO-8]. All data structures have a set of defined operations. At it's most basic we need to create the structure, so let's start there.
 
+```notes-documentation
+- [String](http://array.com)
+```
+
 For this example, let's consider our data to be the days of the week and we will represent that using String literals. There's actually more than one way to declare an array, so I'll just go ahead and type out the first one here, and we'll break it down. 
 
 ```swift
@@ -88,6 +96,10 @@ Between the set of square brackets, we can write out a series of values where ea
 ```
 
 When we learned about constants, remember I said that if we didn't assign a String, Int, Double or Bool literal to a constant or variable, the compiler would just get rid of it right? The same concept applies here. 
+
+```notes-documentation
+- [Arrays](https://developer.apple.com/documentation/swift/array)
+```
 
 So what you see here is the syntax for creating a new array literal, but to work with it after this line of code, we actually need to assign it to a constant and give it a name, so let's do that [LO-11].
 

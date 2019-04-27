@@ -23,6 +23,10 @@ public final class Syllabus<View, DefinitionStore, Codec>: Codable where View: B
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(course, forKey: .course)
     }
+    
+    func notes(source: View, codec: Codec.Type) -> String {
+        return course.stages.reduce("", { $0 + $1.notes(source: source, codec: codec.self) })
+    }
 }
 
 public final class Course<View, DefinitionStore, Codec>: Codable where View: BidirectionalCollection, DefinitionStore: ReferenceDefinitionProtocol, Codec: MarkdownParserCodec, View.Element == Codec.CodeUnit {

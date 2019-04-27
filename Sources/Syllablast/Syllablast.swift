@@ -24,9 +24,16 @@ public final class Syllablast<View, DefinitionStore, Codec> where View: Bidirect
         return markdown.isAtEnd
     }
     
+    let yamlOpeningDelimiter = "---"
+    
     public func generateAdminYaml() throws -> String {
         let syllabus = try generateSyllabus()
-        return try "---\n" + encoder.encode(syllabus)
+        return try yamlOpeningDelimiter + String.newlines(1) + encoder.encode(syllabus)
+    }
+    
+    public func generateNotes() throws -> String {
+        let syllabus = try generateSyllabus()
+        return syllabus.notes(source: markdown.source, codec: markdown.codec)
     }
     
     private func generateSyllabus() throws -> Syllabus<View, DefinitionStore.Definition, Codec> {

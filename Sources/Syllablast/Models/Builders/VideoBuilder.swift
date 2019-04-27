@@ -27,9 +27,8 @@ final class VideoBuilder<View, DefinitionStore, Codec> where View: Bidirectional
         let title = header.text.split(separator: " ").dropFirst(2).joined(separator: " ")
         let metadata = try readVideoMetadata()
         let script = try generateScripts()
-        let notes = try generateNotes()
         
-        let video = Video(title: title, description: metadata.description, accessLevel: metadata.accessLevel, published: metadata.published, scripts: script, notes: notes, authors: metadata.authors, topic: topic)
+        let video = Video(title: title, description: metadata.description, accessLevel: metadata.accessLevel, published: metadata.published, scripts: script, authors: metadata.authors, topic: topic)
         
         if markdown.isNotAtEnd {
             let learningObjectives = try generateLearningObjectives(withParent: video)
@@ -56,9 +55,5 @@ final class VideoBuilder<View, DefinitionStore, Codec> where View: Bidirectional
     
     private func generateLearningObjectives(withParent parent: Content) throws -> [LearningObjective] {
         return try LearningObjectiveBuilder(markdown: markdown, parent: parent).generateLearningObjectives()
-    }
-    
-    private func generateNotes() throws -> Notes {
-        return Notes()
     }
 }

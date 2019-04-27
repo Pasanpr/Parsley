@@ -27,15 +27,18 @@ Group {
     $0.command("generate",
                Flag("admin", description: "Generate admin.yml file for course uploads. Created at target path admin/ by default"),
                Flag("learning-objectives", description: ""),
+               Flag("notes", description: "Teacher's notes for the course listed by step"),
                Option("path", default: "", description: "Path to scripts folder"),
                description: "Generates files. Requires subcommand")
-    { admin, learningObjectives, path in
+    { admin, learningObjectives, notes, path in
         if admin {
             do {
                 try Parsley.generateAdmin(path: path)
             }
         } else if learningObjectives  {
             try Parsley.generateLearningObjectives()
+        } else if notes {
+            try Parsley.generateNotes(path: path)
         } else {
             fputs("generate requires a subcommand. Run parsley --help for help!", stderr)
         }

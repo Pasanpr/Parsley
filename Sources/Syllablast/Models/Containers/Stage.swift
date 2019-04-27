@@ -58,6 +58,21 @@ public final class Stage<View, DefinitionStore, Codec>: Encodable where View: Bi
         try container.encode(topicsCovered, forKey: .topicsCovered)
         try container.encode(steps, forKey: .steps)
     }
+    
+    public func notes(source: View, codec: Codec.Type) -> String {
+        return steps.reduce("", {(accumulator, step) in
+            var output = "Stage - \(title)" + String.newlines(2)
+            
+            switch step {
+            case .video(let v):
+                output += v.notes(source: source, codec: codec.self)
+            default:
+                output += ""
+            }
+            
+            return accumulator + output + String.newlines(2)
+        })
+    }
 }
 
 extension Stage {

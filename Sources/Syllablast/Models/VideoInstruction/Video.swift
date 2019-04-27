@@ -15,7 +15,6 @@ final class Video<View, DefinitionStore>: Content, Encodable where View: Bidirec
     let published: Bool
     let scripts: Script<View, DefinitionStore>
     var learningObjectives: [LearningObjective] = []
-    let notes: Notes
     let topic: Topic
     
     private enum CodingKeys: String, CodingKey {
@@ -28,13 +27,12 @@ final class Video<View, DefinitionStore>: Content, Encodable where View: Bidirec
         case authors
     }
     
-    init(title: String, description: String, accessLevel: AccessLevel, published: Bool, scripts: Script<View, DefinitionStore>, notes: Notes, authors: [Author], topic: Topic) {
+    init(title: String, description: String, accessLevel: AccessLevel, published: Bool, scripts: Script<View, DefinitionStore>, authors: [Author], topic: Topic) {
         self.title = title
         self.description = description
         self.accessLevel = accessLevel
         self.published = published
         self.scripts = scripts
-        self.notes = notes
         self.topic = topic
     }
     
@@ -49,6 +47,30 @@ final class Video<View, DefinitionStore>: Content, Encodable where View: Bidirec
         if !learningObjectives.isEmpty {
             try container.encodeIfPresent(learningObjectives, forKey: .learningObjectives)
         }
+    }
+    
+    public func notes<Codec: MarkdownParserCodec>(source: View, codec: Codec.Type) -> String where View.Element == Codec.CodeUnit {
+        let fenceBlocks = scripts.sections.map({$0.content.filter({ $0.isFenceBlock }).compactMap({ $0.fenceBlock }).map({ Fence(block: $0, source: source, codec: codec.self) })}).flatMap({$0}).filter({ $0.name.contains("notes") })
+        
+        var fenceNames = Set(fenceBlocks.map({ $0.name }))
+        fenceNames.remove("notes")
+        let sectionNames = fenceNames.map({ $0.split(separator: "-") }).map({ $0.dropFirst() }).flatMap({ $0 })
+        
+        
+        let sectionedNotes =  sectionNames.reduce("") { (accumulator, sectionTitle) -> String in
+            var section = "#### \(sectionTitle.capitalized)\n\n"
+            section += fenceBlocks.filter({ $0.name.contains(sectionTitle) }).reduce("", { (accumulator, fence) in
+                return accumulator + fence.body + "\n"
+            })
+            
+            return accumulator + section
+        }
+        
+        let nonSectionedNotes = fenceBlocks.filter({ $0.name == "notes" }).reduce("", { (accumulator, fence) in
+            return accumulator + fence.body + "\n"
+        })
+        
+        return "Video - \(title)\n\n" + sectionedNotes + "\n" + nonSectionedNotes
     }
 }
 
