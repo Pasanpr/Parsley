@@ -66,6 +66,16 @@ final class MultipleChoiceQuestion: Encodable {
     }
 }
 
+extension MultipleChoiceQuestion: Equatable {
+    static func ==(lhs: MultipleChoiceQuestion, rhs: MultipleChoiceQuestion) -> Bool {
+        return lhs.canSelectMultipleAnswers == rhs.canSelectMultipleAnswers
+            && lhs.question == rhs.question
+            && lhs.learningObjectives == rhs.learningObjectives
+            && lhs.shuffleAnswers == rhs.shuffleAnswers
+            && lhs.answers == rhs.answers
+    }
+}
+
 final class MultipleChoiceAnswer: Encodable {
     let id: String?
     let answer: String
@@ -100,5 +110,14 @@ final class MultipleChoiceAnswer: Encodable {
 extension MultipleChoiceAnswer: CustomStringConvertible {
     var description: String {
         return "\nid:\(id ?? "N/A")\nanswer: \(answer)\nisCorrect: \(isCorrect)\nfeedback: \(feedback ?? "")"
+    }
+}
+
+extension MultipleChoiceAnswer: Equatable {
+    static func ==(lhs: MultipleChoiceAnswer, rhs: MultipleChoiceAnswer) -> Bool {
+        return lhs.id == rhs.id
+        && lhs.answer == rhs.answer
+        && lhs.isCorrect == rhs.isCorrect
+        && lhs.feedback == rhs.feedback
     }
 }

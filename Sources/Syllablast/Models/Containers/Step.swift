@@ -34,3 +34,19 @@ enum StepType: String {
     case codeChallenge = "Code"
     case quiz = "Quiz"
 }
+
+extension Step {
+    var isQuiz: Bool {
+        switch self {
+        case .quiz: return true
+        default: return false
+        }
+    }
+    
+    var quiz: Quiz? {
+        switch self {
+        case .quiz(let q): return q
+        default: return nil
+        }
+    }
+}

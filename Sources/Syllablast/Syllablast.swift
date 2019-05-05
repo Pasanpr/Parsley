@@ -36,7 +36,7 @@ public final class Syllablast<View, DefinitionStore, Codec> where View: Bidirect
         return syllabus.notes(source: markdown.source, codec: markdown.codec)
     }
     
-    private func generateSyllabus() throws -> Syllabus<View, DefinitionStore.Definition, Codec> {
+    public func generateSyllabus() throws -> Syllabus<View, DefinitionStore.Definition, Codec> {
         let course = try generateCourseShell(codec: Codec.self)
         let stage = try generateStage(withTopic: course.topic)
         course.stages.append(contentsOf: [stage])

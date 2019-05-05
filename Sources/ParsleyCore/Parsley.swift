@@ -38,7 +38,7 @@ public final class Parsley {
 }
 
 extension Parsley {
-    private static func generateSyllablastFromScripts(at path: String) throws -> Syllablast<String, DefaultReferenceDefinitionStore, CharacterMarkdownCodec> {
+    public static func generateSyllablastFromScripts(at path: String) throws -> Syllablast<String, DefaultReferenceDefinitionStore, CharacterMarkdownCodec> {
         let source = try scripts(at: path)
         return Syllablast(source: source, definitionStore: DefaultReferenceDefinitionStore(), codec: CharacterMarkdownCodec.self)
     }

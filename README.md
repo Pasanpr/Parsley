@@ -26,10 +26,16 @@ $ parsley generate --admin --path path_to_scripts
 $ parsley generate --learning-objectives
 ```
 
-:octagonal_sign: Generate a report on "assessment coverage". How many of the total Learning Objectives introduced in the course are assessed?
+:100: Generate a report on "assessment coverage". How many of the total Learning Objectives introduced in the course are assessed?
 
 ```bash
 $ parsley generate --assessment-coverage
+```
+
+:musical_note: Output all teacher's notes by video and stage
+
+```bash
+$ parsley generate --notes
 ```
 
 :email: Generate random badge unlock email. Includes course names  and Google Analytics URLs. Templates are defined [here](). Submit a PR to add more!

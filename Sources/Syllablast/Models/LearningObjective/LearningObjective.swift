@@ -20,7 +20,7 @@ class LearningObjective: Encodable {
         case topic
     }
     
-    init(id: Int, parent: Content, title: String, cognitiveLevel: CognitiveLevel, topic: Topic) {
+    init(id: Int, parent: Content?, title: String, cognitiveLevel: CognitiveLevel, topic: Topic) {
         self.id = id
         self.parent = parent
         self.title = title

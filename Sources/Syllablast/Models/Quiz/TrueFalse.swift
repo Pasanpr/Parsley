@@ -57,3 +57,8 @@ struct TrueFalseQuestion: Encodable {
     }
 }
 
+extension TrueFalseQuestion: Equatable {
+    static func ==(lhs: TrueFalseQuestion, rhs: TrueFalseQuestion) -> Bool {
+        return lhs.question == rhs.question && lhs.learningObjectives == rhs.learningObjectives && lhs.answer == rhs.answer && lhs.trueFeedback == rhs.trueFeedback && lhs.falseFeedback == rhs.falseFeedback
+    }
+}

@@ -12,6 +12,12 @@ struct QuizLearningObjective: Encodable {
     let topic: Topic
 }
 
+extension QuizLearningObjective: Equatable {
+    static func ==(lhs: QuizLearningObjective, rhs: QuizLearningObjective) -> Bool {
+        return lhs.title == rhs.title && lhs.topic == rhs.topic
+    }
+}
+
 final class Quiz: Encodable {
     let title: String
     let totalQuestions: Int

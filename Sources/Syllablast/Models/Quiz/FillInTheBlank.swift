@@ -50,6 +50,12 @@ final class FillInTheBlankQuestion: Encodable {
     }
 }
 
+extension FillInTheBlankQuestion: Equatable {
+    static func ==(lhs: FillInTheBlankQuestion, rhs: FillInTheBlankQuestion) -> Bool {
+        return lhs.question == rhs.question && lhs.learningObjectives == rhs.learningObjectives && lhs.blanks == rhs.blanks
+    }
+}
+
 final class FillInTheBlankAnswer: Encodable {
     let id: String?
     let blankIndex: Int
@@ -86,5 +92,11 @@ final class FillInTheBlankAnswer: Encodable {
     
     func addFeedback(_ feedback: String) {
         self.feedback = feedback
+    }
+}
+
+extension FillInTheBlankAnswer: Equatable {
+    static func ==(lhs: FillInTheBlankAnswer, rhs: FillInTheBlankAnswer) -> Bool {
+        return lhs.id == rhs.id &&  lhs.blankIndex == rhs.blankIndex && lhs.answer == rhs.answer && lhs.usesStringValidation == rhs.usesStringValidation && lhs.isCanonical == rhs.isCanonical && lhs.feedback == rhs.feedback
     }
 }
