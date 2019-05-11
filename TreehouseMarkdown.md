@@ -30,11 +30,11 @@ Example:
 title: Swift Arrays
 topic: Swift
 description: |
-In the past we've only worked with a single item of data in a constant or a variable. There's much more to this of course, and working with groups or collections of data is an important part of programming. In this course we'll look at the the first fundamental type that we use in Swift to represent these collections - Arrays
+  In the past we've only worked with a single item of data in a constant or a variable. There's much more to this of course, and working with groups or collections of data is an important part of programming. In this course we'll look at the the first fundamental type that we use in Swift to represent these collections - Arrays
 concepts_covered: |
-Declaring array literals
-Appending, inserting, updating and removing elements
-For in loops"
+  Declaring array literals
+  Appending, inserting, updating and removing elements
+  For in loops"
 status: New
 skill_level: Beginner
 access_level: Basic
@@ -47,7 +47,7 @@ responsible_teacher: pasan@teamtreehouse.com
 
 Headers are used to denote specific parts of the script. 
 
-- Level 1: Stage  -  Stage Title. 
+- Level 1: Stage - Stage Title. 
 
 ```md
 # Stage - An Introduction to Programming
