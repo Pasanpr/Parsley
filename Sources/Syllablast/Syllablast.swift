@@ -24,6 +24,8 @@ public final class Syllablast<View, DefinitionStore, Codec> where View: Bidirect
         return markdown.isAtEnd
     }
     
+    // MARK: - Admin
+    
     let yamlOpeningDelimiter = "---"
     
     public func generateAdminYaml() throws -> String {
@@ -35,6 +37,15 @@ public final class Syllablast<View, DefinitionStore, Codec> where View: Bidirect
         let syllabus = try generateSyllabus()
         return syllabus.notes(source: markdown.source, codec: markdown.codec)
     }
+    
+    // MARK: - Learning Objectives
+    
+    public func generateLearningObjectives() throws -> String {
+        let syllabus = try generateSyllabus()
+        return syllabus.course.learningObjectives
+    }
+    
+    // MARK: - Helpers
     
     public func generateSyllabus() throws -> Syllabus<View, DefinitionStore.Definition, Codec> {
         let course = try generateCourseShell(codec: Codec.self)

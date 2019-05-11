@@ -36,7 +36,7 @@ Group {
                 try Parsley.generateAdmin(path: path)
             }
         } else if learningObjectives  {
-            try Parsley.generateLearningObjectives()
+            try Parsley.generateLearningObjectives(path: path)
         } else if notes {
             try Parsley.generateNotes(path: path)
         } else {

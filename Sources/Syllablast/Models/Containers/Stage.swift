@@ -73,6 +73,14 @@ public final class Stage<View, DefinitionStore, Codec>: Encodable where View: Bi
             return accumulator + output + String.newlines(2)
         })
     }
+    
+    public var learningObjectives: String {
+        let output = "# Stage - \(title)" + String.newlines(2)
+        
+        return output + steps.reduce("") { (acc, step) in
+            acc + step.learningObjectives
+        }
+    }
 }
 
 extension Stage {

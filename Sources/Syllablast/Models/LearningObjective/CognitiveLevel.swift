@@ -21,4 +21,12 @@ extension CognitiveLevel {
         default: fatalError()
         }
     }
+    
+    var shortDescription: String {
+        switch self {
+        case .recall: return "1"
+        case .intepretation: return "2"
+        case .synthesis: return "3"
+        }
+    }
 }

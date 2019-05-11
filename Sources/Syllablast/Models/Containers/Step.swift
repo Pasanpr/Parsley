@@ -78,3 +78,13 @@ extension Step {
         }
     }
 }
+
+extension Step {
+    var learningObjectives: String {
+        switch self {
+        case .video(let video): return video.learningObjectivesDescription
+        case .instruction(let instruction): return instruction.learningObjectivesDescription
+        default: return ""
+        }
+    }
+}

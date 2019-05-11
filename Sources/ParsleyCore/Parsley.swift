@@ -26,8 +26,13 @@ public final class Parsley {
         try admin.write(string: yaml)
     }
     
-    public static func generateLearningObjectives() throws {
+    public static func generateLearningObjectives(path: String) throws {
+        let syllablast = try generateSyllablastFromScripts(at: path)
+        let learningObjectives  = try syllablast.generateLearningObjectives()
         
+        let folder = try Folder(path: path).subfolder(named: "scripts")
+        let learningObjectivesDoc = try folder.createFileIfNeeded(withName: "LearningObjectives.md")
+        try learningObjectivesDoc.write(string: learningObjectives)
     }
     
     public static func generateNotes(path: String) throws {

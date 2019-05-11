@@ -87,6 +87,12 @@ public final class Course<View, DefinitionStore, Codec>: Codable where View: Bid
     public func addStage(_ stage: Stage<View, DefinitionStore, Codec>) {
         self.stages.append(stage)
     }
+    
+    var learningObjectives: String {
+        return stages.reduce("") { (acc, stage) in
+            return acc + stage.learningObjectives
+        }
+    }
 }
 
 extension Course: Equatable {
