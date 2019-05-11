@@ -45,6 +45,13 @@ public final class Syllablast<View, DefinitionStore, Codec> where View: Bidirect
         return syllabus.course.learningObjectives
     }
     
+    // MARK: - Assessment Coverage
+    
+    public func generateAssessmentCoverage() throws -> String {
+        let syllabus = try generateSyllabus()
+        return syllabus.course.assessmentCoverage
+    }
+    
     // MARK: - Helpers
     
     public func generateSyllabus() throws -> Syllabus<View, DefinitionStore.Definition, Codec> {

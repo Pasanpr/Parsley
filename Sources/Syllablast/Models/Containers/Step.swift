@@ -80,11 +80,28 @@ extension Step {
 }
 
 extension Step {
-    var learningObjectives: String {
+    var learningObjectivesDescription: String {
         switch self {
         case .video(let video): return video.learningObjectivesDescription
         case .instruction(let instruction): return instruction.learningObjectivesDescription
         default: return ""
+        }
+    }
+    
+    var learningObjectives: [LearningObjective] {
+        switch self {
+        case .video(let v): return v.learningObjectives
+        case .instruction(let i): return i.learningObjectives
+        default: return []
+        }
+    }
+    
+    var stepTitle: String {
+        switch self {
+        case .video(let v): return v.title
+        case .instruction(let i): return i.title
+        case .quiz(let q): return q.title
+        case .codeChallenge(let cc): return cc.title
         }
     }
 }

@@ -93,6 +93,41 @@ public final class Course<View, DefinitionStore, Codec>: Codable where View: Bid
             return acc + stage.learningObjectives
         }
     }
+    
+    var assessmentCoverage: String {
+        let allQuizzes = self.quizzes
+        var totalIntroduced = 0
+        var totalAssessed = 0
+        var output = ""
+        
+        for (stageIdx, stage) in stages.enumerated() {
+            for (stepIdx, step) in stage.steps.enumerated() where step.isVideo {
+                let title = "S\(stageIdx + 1)V\(stepIdx + 1) - \(step.stepTitle)"
+                let learningObjectives = step.learningObjectives.map({ $0.id })
+                let assessedLearningObjectives = allQuizzes.flatMap({ $0.assessedLearningObjectives(from: learningObjectives) })
+                
+                let introducedCount = learningObjectives.count
+                totalIntroduced += introducedCount
+                
+                let assessedCount = assessedLearningObjectives.count
+                totalAssessed += assessedCount
+                
+                let percent = Int((Double(assessedCount)/Double(introducedCount)) * 100)
+                output += "\(title): \(assessedCount)/\(introducedCount) [\(percent)%]\n"
+            }
+        }
+        
+        let percent = Int((Double(totalAssessed)/Double(totalIntroduced)) * 100)
+        output += "\n\(percent)% of the learning objectives introduced in this course are assessed"
+        
+        return output
+    }
+    
+    var quizzes: [Quiz] {
+        return stages.compactMap { stage in
+            stage.steps.filter({ $0.isQuiz }).compactMap({ $0.quiz })
+        }.flatMap({ $0 })
+    }
 }
 
 extension Course: Equatable {

@@ -34,4 +34,13 @@ enum QuizQuestion: Encodable {
             try mcma.encode(to: encoder)
         }
     }
+    
+    func isAssociatedWithLearningObjective(id: Int) -> Bool {
+        switch self {
+        case .multipleChoice(let question): return question.associatedLearningObjective.id == id
+        case .fitb(let question): return question.associatedLearningObjective.id == id
+        case .trueFalse(let question): return question.associatedLearningObjective.id == id
+        case .multipleChoiceMultipleAnswer(let question): return question.associatedLearningObjective.id == id
+        }
+    }
 }

@@ -28,15 +28,18 @@ Group {
                Flag("admin", description: "Generate admin.yml file for course uploads. Created at target path admin/ by default"),
                Flag("learning-objectives", description: ""),
                Flag("notes", description: "Teacher's notes for the course listed by step"),
+               Flag("assessment-coverage", description: "Generate assessment coverage metrics for the course"),
                Option("path", default: "", description: "Path to scripts folder"),
                description: "Generates files. Requires subcommand")
-    { admin, learningObjectives, notes, path in
+    { admin, learningObjectives, notes, assessmentCoverage, path in
         if admin {
             do {
                 try Parsley.generateAdmin(path: path)
             }
         } else if learningObjectives  {
             try Parsley.generateLearningObjectives(path: path)
+        } else if assessmentCoverage {
+            try Parsley.generateAssessmentCoverage(path: path)
         } else if notes {
             try Parsley.generateNotes(path: path)
         } else {

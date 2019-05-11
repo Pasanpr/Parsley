@@ -78,7 +78,7 @@ public final class Stage<View, DefinitionStore, Codec>: Encodable where View: Bi
         let output = "# Stage - \(title)" + String.newlines(2)
         
         return output + steps.reduce("") { (acc, step) in
-            acc + step.learningObjectives
+            acc + step.learningObjectivesDescription
         }
     }
 }

@@ -56,4 +56,10 @@ final class Quiz: Encodable {
         try container.encode(usesMarkdown, forKey: .usesMarkdown)
         try container.encode(questions, forKey: .questions)
     }
+    
+    public func assessedLearningObjectives(from learningObjectives: [Int]) -> [Int] {
+        return learningObjectives.filter { id in
+            questions.map({ $0.isAssociatedWithLearningObjective(id: id) }).contains(true)
+        }
+    }
 }

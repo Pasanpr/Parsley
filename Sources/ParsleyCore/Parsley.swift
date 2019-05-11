@@ -40,6 +40,11 @@ public final class Parsley {
         print(try syllablast.generateNotes())
     }
     
+    public static func generateAssessmentCoverage(path: String) throws {
+        let syllablast = try generateSyllablastFromScripts(at: path)
+        print(try syllablast.generateAssessmentCoverage())
+    }
+    
 }
 
 extension Parsley {
