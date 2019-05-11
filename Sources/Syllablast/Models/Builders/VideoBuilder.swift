@@ -50,7 +50,7 @@ final class VideoBuilder<View, DefinitionStore, Codec> where View: Bidirectional
     }
     
     private func generateScripts() throws -> Script<View, DefinitionStore.Definition> {
-        return try ScriptsBuilder(markdown: self.markdown).generateScripts()
+        return try ScriptsBuilder(markdown: markdown).generateScripts()
     }
     
     private func generateLearningObjectives(withParent parent: Content) throws -> [LearningObjective] {

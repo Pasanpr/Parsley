@@ -148,8 +148,6 @@ estimated_minutes: 5
 
 If this is your first time at Treehouse, welcome! In this document we’re going to talk about how you can fully utilize the resources Treehouse provides to get the best learning experience. If you've been here a while and know how to use the Treehouse app, go all the way to the bottom of this document and hit "Ok, I got it".
 
-[LO-1]: Recall how to best use Treehouse to study
-
 All Treehouse courses consist of a combination of units:
 1. Videos, one of which you just watched
 2. Instruction Steps - text based documents (like this one)
@@ -215,6 +213,9 @@ Regardless of the format, you should definitely make time to work through these 
 
 Alright, if you’re ready, hit “Ok, I got it” to head to the next step.
 
+---
+
+[LO-13]: Recall how to best use Treehouse to study
 
 ## Code Challenge - Concatenating Strings
 

@@ -14,3 +14,8 @@
 10. Recall that to create an array literal the second step is to list out the values inside the square brackets separated by commas (1)
 11. Recall that to work with an array literal previously declared it needs to be assigned to a variable or constant (1)
 12. Differentiate between declaring an array literal and assigning it to a constant (2)
+
+## Instruction - Learning at Treehouse
+
+13. Recall how to best use Treehouse to study (1)
+

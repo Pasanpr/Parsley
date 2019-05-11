@@ -99,9 +99,11 @@ final class Instruction<View, DefinitionStore>: Content, Encodable where View: B
     
     var learningObjectivesDescription: String {
         if !learningObjectives.isEmpty {
-            return "## Instruction - \(title)" + String.newlines(1) + learningObjectives.reduce("") { (acc, learningObjective) in
+            let output = "## Instruction - \(title)" + String.newlines(1) + learningObjectives.reduce("") { (acc, learningObjective) in
                 acc + String.newlines(1) + "\(learningObjective.id). \(learningObjective.title) (\(learningObjective.cognitiveLevel.shortDescription))"
             }
+            
+            return output + String.newlines(2)
         } else {
             return ""
         }

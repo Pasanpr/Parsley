@@ -9,6 +9,5 @@ import Foundation
 import SwiftMark
 
 struct Script<View, DefinitionStore> where View: BidirectionalCollection, DefinitionStore: ReferenceDefinitionProtocol {
-    
     let sections: [Section<View, DefinitionStore>]
 }
