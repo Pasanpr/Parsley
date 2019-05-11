@@ -38,13 +38,6 @@ $ parsley generate --assessment-coverage
 $ parsley generate --notes
 ```
 
-:email: Generate random badge unlock email. Includes course names  and Google Analytics URLs. Templates are defined [here](). Submit a PR to add more!
-
-```bash
-$ parsley generate --intro-email
-$ parsley generate --outro-email
-```
-
 :movie_camera: Generate Scripts, On Set and Motion docs for production with extraneous information (quizzes, ccs, learning objectives, instruction steps) removed and numbering added.
 
 ```bash
