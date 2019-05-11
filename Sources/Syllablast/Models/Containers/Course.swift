@@ -106,7 +106,7 @@ extension Course: Equatable {
 
 extension Course: CustomStringConvertible {
     public var description: String {
-        return "title: \(title)\ntopic: \(topic)\ndescription: \(courseDescription)\nstatus: \(status)\nskillLevel: \(skillLevel)\naccessLevel: \(accessLevel)\nconceptsCovered: \(conceptsCovered)\npubDate: \(estimatedPublishDate)\nroadmap: \(isVisibleOnRoadmap)\nresponsibleTeacher: \(responsibleTeacher)"
+        return "title: \(title)\ntopic: \(topic)\ndescription: \(courseDescription)\nstatus: \(status)\nskillLevel: \(skillLevel)\naccessLevel: \(accessLevel)\nconceptsCovered: \(conceptsCovered)\npubDate: \(String(describing: estimatedPublishDate))\nroadmap: \(isVisibleOnRoadmap)\nresponsibleTeacher: \(responsibleTeacher)"
     }
 }
 

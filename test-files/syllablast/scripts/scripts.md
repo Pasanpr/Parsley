@@ -137,6 +137,81 @@ Alright before we talk about anything else, let's get some quick practice declar
 
 [LO-12-2]: Differentiate between declaring an array literal and assigning it to a constant
 
+## Instruction - Review: Strings
+
+```yaml
+---
+description: Let's recap everything we've learned about the String type so far
+format: Markdown
+estimated_minutes: 3
+```
+
+### Creating Strings
+
+The String type represents data in the form of text. To create a string literal you enclose text within a pair of double quotes.
+
+```swift
+"This is a string literal"
+```
+
+In some programming languages you can use single quotes to create a string literal. This is not possible in Swift. 
+
+Once a string literal is created, like any other piece of data, it needs to be assigned to a constant. If you don't, the compiler gets rid of it. 
+
+### Concatenating Strings
+
+Concatenation is the process of combining two or more strings using the addition operator to *form a new string literal*. The string literals used in the concatenation operation are not modified. 
+
+```swift
+let alphabet = "a" + "b" + "c"
+```
+
+The following special characters can be used to add formatting to string literals.
+
+- `\n`: Newline character
+- `\t`: Tab character
+- `\r`: Carriage return character
+- `\\`: Backslash character
+- `\"`: Double quotation mark. This allows you to write a double quote inside a string without closing the literal.
+- `\'`: Single quotation mark
+- `\0`: Null character
+
+For example you can concatenate a newline to a combined string literal as follows:
+
+```swift
+let output = "123 Street" + "\n" + "City"
+```
+
+There are limits to concatenation however:
+
+- Several concatenation operations are needed to form complex strings
+- Concatenation cannot be used when the data are of different types
+
+### String Interpolation 
+
+String interpolation is the process of inserting string literals or other kinds of data into an existing string literal. The syntax for string interpolation is a backslash followed by a set of parentheses - `\()`. Anything inserted inside the parentheses are _interpolated_ into the existing string literal. 
+
+```swift
+let output = "This is a \("string literal") inside another literal"
+```
+
+With string interpolation you can combine different data types to generate a new string literal.
+
+```swift
+let output = "The year is \(2014) and Swift is at version \(1.0)"
+```
+
+It is much easier to incorporate formatting, punctuation and whitespace into a string using interpolation over concatenation.
+
+```swift
+// Interpolation
+let result = "This is a string\nspread across mutliple\nlines\twith some space inlcuded"
+// Concatenation
+let output = "This is a string" + "\n" + "spread across multiple" + "\n" + "lines" + "\t" + "with some space included". 
+```
+
+To read more about the String type, check out the [documentation](https://docs.swift.org/swift-book/LanguageGuide/StringsAndCharacters.html)
+
 ## Quiz - Recap: Strings
 
 ```quiz

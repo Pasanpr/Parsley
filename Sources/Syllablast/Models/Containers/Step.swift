@@ -49,4 +49,32 @@ extension Step {
         default: return nil
         }
     }
+    
+    var isInstruction: Bool {
+        switch self {
+        case .instruction: return true
+        default: return false
+        }
+    }
+    
+    var instruction: Instruction<View, DefinitionStore>? {
+        switch self {
+        case .instruction(let i): return i
+        default: return nil
+        }
+    }
+    
+    var isVideo: Bool {
+        switch self {
+        case .video: return true
+        default: return false
+        }
+    }
+    
+    var video: Video<View, DefinitionStore>? {
+        switch self {
+        case .video(let v): return v
+        default: return nil
+        }
+    }
 }

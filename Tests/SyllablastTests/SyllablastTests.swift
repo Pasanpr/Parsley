@@ -81,11 +81,27 @@ fileprivate extension TrueFalseQuestion {
 }
 
 extension Syllablast {
-    func quiz(_ n: Int, inStage stage: Int) -> Quiz {
+    func stage(n: Int) -> Stage<View, DefinitionStore.Definition, Codec> {
         let syllabus = try! generateSyllabus()
-        let stage = syllabus.course.stages[stage-1]
+        return syllabus.course.stages[n-1]
+    }
+    
+    func video(_ n: Int, inStage stage: Int) -> Video<View, DefinitionStore.Definition> {
+        let stage = self.stage(n: stage)
+        let videos = stage.steps.compactMap({ $0.video })
+        return videos[n-1]
+    }
+    
+    func quiz(_ n: Int, inStage stage: Int) -> Quiz {
+        let stage = self.stage(n: stage)
         let quizzes = stage.steps.compactMap({ $0.quiz })
         return quizzes[n-1]
+    }
+    
+    func instruction(_ n: Int, inStage stage: Int) -> Instruction<View, DefinitionStore.Definition> {
+        let stage = self.stage(n: stage)
+        let instructions = stage.steps.compactMap({ $0.instruction })
+        return instructions[n-1]
     }
 }
 
@@ -142,12 +158,59 @@ final class SyllablastTests: XCTestCase {
     var syllablast: Syllablast<String, DefaultReferenceDefinitionStore, CharacterMarkdownCodec>!
     
     override func setUp() {
-        let path = Folder.current.path.contains("DerivedData") ? try! Folder(path: "/Users/pasan/Development/Parsley/test-files/syllablast/quizzes").path : try! Folder.current.subfolder(atPath: "test-files/syllablast/quizzes").path
+        let path = Folder.current.path.contains("DerivedData") ? try! Folder(path: "/Users/pasan/Development/Parsley/test-files/syllablast").path : try! Folder.current.subfolder(atPath: "test-files/syllablast").path
         syllablast = try! Parsley.generateSyllablastFromScripts(at: path)
     }
     
-    func testQuizzes() {
+    func testSyllabus() {
+        let course = try! syllablast.generateSyllabus().course
+        XCTAssertEqual(course.title, "Swift Arrays")
+        XCTAssertEqual(course.topic, .swift)
         
+        let description = "In the past we've only worked with a single item of data in a constant or a variable. There's much more to this of course, and working with groups or collections of data is an important part of programming. In this course we'll look at the the first fundamental type that we use in Swift to represent these collections - Arrays"
+        XCTAssertEqual(course.courseDescription, description)
+        
+        XCTAssertEqual(course.conceptsCovered, "Declaring array literals\nAppending, inserting, updating and removing elements\nFor in loops")
+        XCTAssertEqual(course.status, .new)
+        XCTAssertEqual(course.skillLevel, .beginner)
+        XCTAssertEqual(course.accessLevel, .basic)
+        XCTAssertEqual(course.estimatedPublishDate, "2019-05-01")
+        XCTAssertEqual(course.isVisibleOnRoadmap, false)
+        XCTAssertEqual(course.responsibleTeacher, "pasan@teamtreehouse.com")
+    }
+    
+    func testStageStructureAndContents() {
+        let stage = syllablast.stage(n: 1)
+        
+        XCTAssertEqual(stage.title, "Storing Data Sequentially")
+        XCTAssertEqual(stage.description, "Arrays are one of many different collection types in Swift. Let\'s start by understanding what arrays are and take a look at the syntax used to create them\n")
+        XCTAssertEqual(stage.topicsCovered, ["Array basics", "Declaring array literals", "Defining array types"])
+        XCTAssertTrue(stage.steps.count == 3)
+        
+        XCTAssertTrue(stage.steps.first!.isVideo)
+        XCTAssertTrue(stage.steps[1].isInstruction)
+        XCTAssertTrue(stage.steps[2].isQuiz)
+    }
+    
+    func testVideo() {
+        let video = syllablast.video(1, inStage: 1)
+        
+        XCTAssertEqual(video.title, "Lists of Data")
+        XCTAssertEqual(video.description, "In Swift the Array type is used to represent lists of data. In this video lets talk about what an array is and how we create array literals")
+        XCTAssertEqual(video.accessLevel, .basic)
+        XCTAssertEqual(video.published, false)
+        
+        let learningObjective = LearningObjective(id: 1, parent: video, title: "Recall that a collection is a structure that contains multiple values", cognitiveLevel: .recall, topic: .swift)
+        XCTAssertTrue(video.learningObjectives.contains(learningObjective))
+    }
+    
+    func testInstruction() {
+        let instruction = syllablast.instruction(1, inStage: 1)
+        XCTAssertEqual(instruction.format, InstructionFormat.markdown)
+        XCTAssertEqual(instruction.description, "Let\'s recap everything we\'ve learned about the String type so far")
+    }
+    
+    func testQuizzes() {
         let quiz = syllablast.quiz(1, inStage: 1)
         
         // Multiple Choice
