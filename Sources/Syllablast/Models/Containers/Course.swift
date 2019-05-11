@@ -101,19 +101,24 @@ public final class Course<View, DefinitionStore, Codec>: Codable where View: Bid
         var output = ""
         
         for (stageIdx, stage) in stages.enumerated() {
-            for (stepIdx, step) in stage.steps.enumerated() where step.isVideo {
-                let title = "S\(stageIdx + 1)V\(stepIdx + 1) - \(step.stepTitle)"
+            for step in stage.steps where step.isVideo || step.isInstruction {
+                let title = "S\(stageIdx + 1)\(step.isVideo ? "V" : "I") - \(step.stepTitle)"
                 let learningObjectives = step.learningObjectives.map({ $0.id })
                 let assessedLearningObjectives = allQuizzes.flatMap({ $0.assessedLearningObjectives(from: learningObjectives) })
                 
                 let introducedCount = learningObjectives.count
+                
+                if introducedCount == 0 {
+                    break
+                }
+                
                 totalIntroduced += introducedCount
                 
                 let assessedCount = assessedLearningObjectives.count
                 totalAssessed += assessedCount
                 
                 let percent = Int((Double(assessedCount)/Double(introducedCount)) * 100)
-                output += "\(title): \(assessedCount)/\(introducedCount) [\(percent)%]\n"
+                output += "\(title) -> \(assessedCount)/\(introducedCount) [\(percent)%]\n"
             }
         }
         

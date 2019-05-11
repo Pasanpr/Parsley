@@ -212,6 +212,10 @@ let output = "This is a string" + "\n" + "spread across multiple" + "\n" + "line
 
 To read more about the String type, check out the [documentation](https://docs.swift.org/swift-book/LanguageGuide/StringsAndCharacters.html)
 
+---
+
+[LO-13]: Recall that this is a learning objective associated with instructions
+
 ## Quiz - Recap: Strings
 
 ```quiz
