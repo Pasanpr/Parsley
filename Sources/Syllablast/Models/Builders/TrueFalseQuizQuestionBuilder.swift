@@ -75,7 +75,8 @@ final class TrueFalseQuizQuestionBuilder {
             }
         }
         
-        if feedbackSpecifiers.isEmpty {
+        // If there is no feedback provided
+        if let components = feedbackSpecifiers.first?.0, components.isEmpty {
             return Feedback(true: nil, false: nil)
         }
         
@@ -87,7 +88,7 @@ final class TrueFalseQuizQuestionBuilder {
             // [F-T]
             
             guard let specifier = components.last else {
-                fatalError("True false feedback must indicate ")
+                throw QuizError.invalidFormatSpecifier
             }
             
             switch specifier {
