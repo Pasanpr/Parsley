@@ -51,6 +51,7 @@ struct TrueFalseQuestion: Encodable {
         }
         
         try container.encode(question, forKey: .question)
+        try container.encode(answer, forKey: .answer)
         try container.encode(learningObjectives, forKey: .learningObjectives)
         try container.encodeIfPresent(trueFeedback, forKey: .trueFeedback)
         try container.encodeIfPresent(falseFeedback, forKey: .falseFeedback)
