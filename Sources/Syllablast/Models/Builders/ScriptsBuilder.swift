@@ -21,7 +21,7 @@ final class ScriptsBuilder<View, DefinitionStore, Codec> where View: Bidirection
         var sections: [Section<View, DefinitionStore.Definition>] = []
         
         while true {
-            if let next = markdown.peek(), next.isThematicBreak {
+            if let next = markdown.peek(), next.isThematicBreak || next.isHeader(ofLevel: 2) {
                 break
             }
             
@@ -57,6 +57,9 @@ final class ScriptsBuilder<View, DefinitionStore, Codec> where View: Bidirection
                 return .stop
             } else if block.isHeader(ofLevel: 3) {
                 // Next Section
+                return .stop
+            } else if block.isHeader(ofLevel: 2) {
+                // Next step
                 return .stop
             } else {
                 return .pop
