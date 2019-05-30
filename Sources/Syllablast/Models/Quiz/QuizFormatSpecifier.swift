@@ -19,7 +19,7 @@ struct QuizFormatSpecifier {
     
     init(formatSpecifierStringComponents: [String.SubSequence]) {
         var options = [String: Bool]()
-        guard let quizType = formatSpecifierStringComponents.first, let associatedLOString = formatSpecifierStringComponents.last?.dropFirst(), let associatedLO = Int(associatedLOString) else {
+        guard let quizType = formatSpecifierStringComponents.first, let associatedLOString = formatSpecifierStringComponents.last?.dropFirst().whitespaceStripped(), let associatedLO = Int(associatedLOString) else {
             fatalError("Quiz question type and LO cannot be missing")
         }
         
