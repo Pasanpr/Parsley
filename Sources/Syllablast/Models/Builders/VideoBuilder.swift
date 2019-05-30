@@ -30,7 +30,7 @@ final class VideoBuilder<View, DefinitionStore, Codec> where View: Bidirectional
         
         let video = Video(title: title, description: metadata.description, accessLevel: metadata.accessLevel, published: metadata.published, scripts: script, authors: metadata.authors, topic: topic)
         
-        if markdown.isNotAtEnd {
+        if let peek = markdown.peek(), !peek.isHeaderBlock, markdown.isNotAtEnd {
             let learningObjectives = try generateLearningObjectives(withParent: video)
             video.addLearningObjectives(learningObjectives)
         }
