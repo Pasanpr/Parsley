@@ -9,14 +9,14 @@ import Foundation
 
 enum CognitiveLevel: String, Encodable {
     case recall
-    case intepretation
+    case interpretation
     case synthesis
 }
 
 extension CognitiveLevel {
     init(id: Int) {
         switch id {
-        case 2: self = .intepretation
+        case 2: self = .interpretation
         case 3: self = .synthesis
         default: fatalError()
         }
@@ -25,7 +25,7 @@ extension CognitiveLevel {
     var shortDescription: String {
         switch self {
         case .recall: return "1"
-        case .intepretation: return "2"
+        case .interpretation: return "2"
         case .synthesis: return "3"
         }
     }
