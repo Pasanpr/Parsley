@@ -16,8 +16,9 @@ extension StringProtocol {
 
 enum StageBuilderError: Error {
     case invalidStageHeader
-    case invalidStageMetadata
+    case invalidStageMetadata(title: String)
     case invalidStepTitle
+    case invalidStepMetadata(title: String)
 }
 
 final class StageBuilder<View, DefinitionStore, Codec> where View: BidirectionalCollection, DefinitionStore: ReferenceDefinitionStore, Codec: MarkdownParserCodec, View.Element == Codec.CodeUnit {
@@ -32,7 +33,7 @@ final class StageBuilder<View, DefinitionStore, Codec> where View: Bidirectional
     
     func generateStage() throws -> Stage<View, DefinitionStore.Definition, Codec> {
         let title = try stageTitle()
-        let metadata = try readStageMetadata()
+        let metadata = try readStageMetadata(for: title)
         let steps = try parseSteps()
         let stage =  Stage<View, DefinitionStore.Definition, Codec>(title: title, metadata: metadata)
         stage.steps = steps
@@ -46,10 +47,10 @@ final class StageBuilder<View, DefinitionStore, Codec> where View: Bidirectional
         return strippedTitle
     }
     
-    private func readStageMetadata() throws -> StageMetadata<View, DefinitionStore.Definition, Codec> {
+    private func readStageMetadata(for stage: String) throws -> StageMetadata<View, DefinitionStore.Definition, Codec> {
         let headerFence = try markdown.fence()
         guard headerFence.isYamlBlock else {
-            throw StageBuilderError.invalidStageMetadata
+            throw StageBuilderError.invalidStageMetadata(title: stage)
         }
         
         return try StageMetadata.stageMetadataFromYaml(headerFence.body)
@@ -58,11 +59,24 @@ final class StageBuilder<View, DefinitionStore, Codec> where View: Bidirectional
     private func parseSteps() throws -> [Step<View, DefinitionStore.Definition>] {
         var steps: [Step<View, DefinitionStore.Definition>] = []
         
-        while markdown.isNotAtEnd {
-            steps.append(try parseStep())
+        while isWithinStage {
+            let step = try parseStep()
+            steps.append(step)
         }
         
         return steps
+    }
+    
+    private var isWithinStage: Bool {
+        guard let peek = markdown.peek() else {
+            return false
+        }
+        
+        if peek.isHeader(ofLevel: 1) {
+            return false
+        }
+        
+        return true
     }
     
     private func parseStep() throws -> Step<View, DefinitionStore.Definition> {
@@ -85,13 +99,17 @@ final class StageBuilder<View, DefinitionStore, Codec> where View: Bidirectional
             return Step.video(video)
         case .instruction:
             let instructionBuilder = InstructionBuilder(header: header, markdown: markdown)
-            let instruction = try instructionBuilder.generateInstruction(withTopic: topic)
-            
-            instruction.learningObjectives.forEach {
-                self.learningObjectives.insert($0)
+            do {
+                let instruction = try instructionBuilder.generateInstruction(withTopic: topic)
+                
+                instruction.learningObjectives.forEach {
+                    self.learningObjectives.insert($0)
+                }
+                
+                return Step.instruction(instruction)
+            } catch MarkdownError.expectedFence {
+                throw StageBuilderError.invalidStepMetadata(title: header.text)
             }
-            
-            return Step.instruction(instruction)
         case .codeChallenge:
             let cc  = try CodeChallengeBuilder(header: header, markdown: markdown).generateCodeChallenge()
             return Step.codeChallenge(cc)

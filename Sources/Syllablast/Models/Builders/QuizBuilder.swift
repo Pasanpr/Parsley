@@ -9,7 +9,7 @@ import Foundation
 import SwiftMark
 
 enum QuizError: Error {
-    case invalidQuizBlock
+    case invalidQuizBlock(title: String)
     case invalidFormatSpecifier
 }
 
@@ -29,34 +29,43 @@ final class QuizBuilder<View, DefinitionStore, Codec> where View: BidirectionalC
     
     func generateQuiz() throws -> Quiz {
         let title = header.text.split(separator: " ").dropFirst(2).joined(separator: " ")
-        let questions = try parseQuizQuestions()
+        let questions = try parseQuizQuestions(forQuiz: title)
         return Quiz(title: title, totalQuestions: questions.count, shuffleQuestions: true, usesMarkdown: true, questions: questions)
     }
     
-    private func parseQuizQuestions() throws -> [QuizQuestion] {
+    private func parseQuizQuestions(forQuiz title: String) throws -> [QuizQuestion] {
         var questions: [QuizQuestion] = []
         
-        while markdown.isNotAtEnd || isAtEndOfStep() {
+        while isNotAtEnd {
+            
             let fence = try markdown.fence()
             guard fence.name == "quiz" else {
-                throw QuizError.invalidQuizBlock
+                throw QuizError.invalidQuizBlock(title: title)
             }
             
-            let question = try parseQuizQuestion(body: fence.body)
-            questions.append(question)
-            
-            // Pop until next quiz question
-            let _ = markdown.popWhile { block in
-                guard let block = block else {
-                    return .stop
+            do {
+                let question = try parseQuizQuestion(body: fence.body)
+                questions.append(question)
+                
+                guard let peek = markdown.peek(), !peek.isHeaderBlock else {
+                    break
                 }
                 
-                switch block {
-                case .fence:
-                    return .stop
-                default:
-                    return .pop
+                // Pop until next quiz question
+                let _ = markdown.popWhile { block in
+                    guard let block = block else {
+                        return .stop
+                    }
+                    
+                    switch block {
+                    case .fence:
+                        return .stop
+                    default:
+                        return .pop
+                    }
                 }
+            } catch {
+                throw QuizError.invalidQuizBlock(title: title)
             }
         }
         
@@ -136,8 +145,26 @@ final class QuizBuilder<View, DefinitionStore, Codec> where View: BidirectionalC
         return (QuizFormatSpecifier(formatSpecifierStringComponents: formatStringComponents), body[scanner.startIndex..<body.endIndex])
     }
     
-    private func isAtEndOfStep() -> Bool {
-        guard let next = markdown.peek(), next.isHeader(ofLevel: 2) else {
+    private var isAtEnd: Bool {
+        if markdown.isAtEnd {
+            return true
+        } else if let next = markdown.peek(), next.isHeader(ofLevel: 1) || next.isHeader(ofLevel: 2) {
+            return true
+        }
+        
+        return false
+    }
+    
+    private var isNotAtEnd: Bool {
+        return !isAtEnd
+    }
+    
+    private var isNotAtEndOfStep: Bool {
+        return !isAtEndOfStep
+    }
+    
+    private var isAtEndOfStep: Bool {
+        guard let next = markdown.peek(), next.isHeader(ofLevel: 2) || next.isHeader(ofLevel: 1) else {
             return false
         }
         

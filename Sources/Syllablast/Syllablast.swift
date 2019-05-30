@@ -2,8 +2,10 @@ import Foundation
 import SwiftMark
 import Yams
 
-enum SyllablastError: Error {
+public enum SyllablastError: Error {
     case missingFrontmatter
+    case missingTitle
+    case missingMetadata(step: String)
     case missingRecordingMode
     case expectedLearningObjective
 }
@@ -29,8 +31,12 @@ public final class Syllablast<View, DefinitionStore, Codec> where View: Bidirect
     let yamlOpeningDelimiter = "---"
     
     public func generateAdminYaml() throws -> String {
-        let syllabus = try generateSyllabus()
-        return try yamlOpeningDelimiter + String.newlines(1) + encoder.encode(syllabus)
+        do {
+            let syllabus = try generateSyllabus()
+            return try yamlOpeningDelimiter + String.newlines(1) + encoder.encode(syllabus)
+        } catch StageBuilderError.invalidStepMetadata(let title) {
+            throw SyllablastError.missingMetadata(step: title)
+        }
     }
     
     public func generateNotes() throws -> String {
@@ -52,12 +58,19 @@ public final class Syllablast<View, DefinitionStore, Codec> where View: Bidirect
         return syllabus.course.assessmentCoverage
     }
     
+    // MARK: - Production Docs
+    
+    public func generateScripts() throws -> String {
+        let syllabus = try generateSyllabus()
+        return try syllabus.scripts(source: markdown.source, codec: markdown.codec)
+    }
+    
     // MARK: - Helpers
     
     public func generateSyllabus() throws -> Syllabus<View, DefinitionStore.Definition, Codec> {
         let course = try generateCourseShell(codec: Codec.self)
-        let stage = try generateStage(withTopic: course.topic)
-        course.stages.append(contentsOf: [stage])
+        let stages = try generateStages(withTopic: course.topic)
+        course.stages.append(contentsOf: stages)
         
         return Syllabus(course: course)
     }
@@ -73,6 +86,7 @@ public final class Syllablast<View, DefinitionStore, Codec> where View: Bidirect
     
     private func generateStages(withTopic topic: Topic) throws -> [Stage<View, DefinitionStore.Definition, Codec>] {
         var stages: [Stage<View, DefinitionStore.Definition, Codec>] = []
+        
         while !isAtEnd {
             let stage = try generateStage(withTopic: topic)
             stages.append(stage)
