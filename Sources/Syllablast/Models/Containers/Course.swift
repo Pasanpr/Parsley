@@ -27,6 +27,11 @@ public final class Syllabus<View, DefinitionStore, Codec>: Codable where View: B
     func notes(source: View, codec: Codec.Type) -> String {
         return course.stages.reduce("", { $0 + $1.notes(source: source, codec: codec.self) })
     }
+    
+    func scripts(source: View, codec: Codec.Type) throws -> String {
+        // FIXME: what the hell is this
+        return try course.stages.first!.steps.first!.video!.scripts.sections.first!.rawOutput(source: source, codec: codec)
+    }
 }
 
 public final class Course<View, DefinitionStore, Codec>: Codable where View: BidirectionalCollection, DefinitionStore: ReferenceDefinitionProtocol, Codec: MarkdownParserCodec, View.Element == Codec.CodeUnit {

@@ -42,7 +42,7 @@ So far we have only worked with single instances of data. We've looked at a Stri
 
 In programming, a collection is a structure that contains multiple values [LO-1]. In Swift, there are three collection types: Arrays, Dictionaries and Sets [LO-2]. Each of these structures can hold multiple values, but the way they do this and the reasons for doing it differ. In this course, we're going to focus on the first of the three - arrays.
 
-[^MOTION]
+[MOTION]
 
 Each collection, or data structure as they are commonly called, has a distinguishing characteristic and what makes an array an array is that the data is stored in an ordered sequence [LO-3].
 
